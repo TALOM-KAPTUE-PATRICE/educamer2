@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>Carnet de Notes de {{ data.studentName }}</h1>
+
+<div mat-dialog-content>
+  <div *ngIf="enrolledCourses$ | async as courses; else loading">
+    <div *ngIf="courses.length > 0; else noCourses">
+      
+      <p>Voici les résultats de votre enfant pour chaque cours auquel il est inscrit.</p>
+
+      <mat-accordion multi>
+        <mat-expansion-panel *ngFor="let course of courses">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ course.title }}</mat-panel-title>
+            <mat-panel-description>
+              Progression : {{ course.progress }}%
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          
+          <ng-template matExpansionPanelContent>
+            <!-- 
+              On utilise notre composant réutilisable ici.
+              On lui passe l'ID de l'enfant pour qu'il sache qu'il est en mode "Parent".
+            -->
+            <app-gradebook-tab 
+                [courseId]="course.id" 
+                [studentId]="data.studentId">
+            </app-gradebook-tab>
+          </ng-template>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+    <ng-template #noCourses>
+      <div class="empty-state">
+        <p>{{ data.studentName }} n'est inscrit(e) à aucun cours pour le moment.</p>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #loading>
+    <div class="loading-spinner"><mat-spinner></mat-spinner></div>
+  </ng-template>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fermer</button>
+</div>

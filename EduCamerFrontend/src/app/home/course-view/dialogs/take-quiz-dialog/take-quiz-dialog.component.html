@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>{{ quizData.title }}</h1>
+<div mat-dialog-content>
+  <!-- Vue Résultat -->
+  <div *ngIf="result" class="result-summary">
+    <h2>Résultat : {{ result.score }} / {{ result.totalQuestions }} ({{ result.percentage }}%)</h2>
+    <p [ngClass]="result.percentage >= 50 ? 'success' : 'failure'">{{ result.message }}</p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <form [formGroup]="quizForm">
+    <div *ngFor="let question of quizData.questions; let i = index" class="quiz-question">
+      <p><strong>{{ i + 1 }}. {{ question.text }}</strong></p>
+      <mat-radio-group [formControlName]="question.id!">
+        <mat-radio-button *ngFor="let answer of question.answers" 
+                          [value]="answer.id!"
+                          [ngClass]="getAnswerClass(question.id!, answer.id!)">
+          {{ answer.text }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button *ngIf="!result" mat-button (click)="dialogRef.close()">Annuler</button>
+  <button *ngIf="!result" mat-flat-button color="primary" (click)="onSubmit()" [disabled]="quizForm.invalid || isSubmitting">
+    {{ isSubmitting ? 'Correction...' : 'Soumettre le Quiz' }}
+  </button>
+  <button *ngIf="result" mat-flat-button color="primary" (click)="closeDialog()">
+    {{ result.percentage >= 50 ? 'Continuer' : 'Fermer' }}
+  </button>
+</div>

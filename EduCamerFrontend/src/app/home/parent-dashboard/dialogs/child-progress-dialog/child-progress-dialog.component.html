@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Progression de {{ data.studentName }}</h1>
+<div mat-dialog-content>
+    <div *ngIf="enrolledCourses$ | async as courses; else loading">
+        <div *ngIf="courses.length > 0; else noCourses">
+            <mat-accordion multi>
+                <mat-expansion-panel *ngFor="let course of courses">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>{{ course.title }}</mat-panel-title>
+                        <mat-panel-description>Progression Globale : {{ course.progress }}%</mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <!-- Le contenu n'est chargé que lorsque le panneau est ouvert -->
+                    <ng-template matExpansionPanelContent>
+                        <app-progress-tab [courseId]="course.id" [studentId]="data.studentId"></app-progress-tab>
+                        <!-- Pour l'instant, affichons juste les détails -->
+                        <div *ngIf="getStudentProgress(course.id) | async as progress">
+                            <mat-list>
+                                <mat-list-item>
+                                    <div matListItemTitle>Leçons complétées</div>
+                                    <div matListItemMeta>{{ progress.completedLessons }} / {{ progress.totalLessons }}
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <ng-template #noCourses>
+            <p>{{ data.studentName }} n'est inscrit(e) à aucun cours.</p>
+        </ng-template>
+    </div>
+    <ng-template #loading><mat-spinner></mat-spinner></ng-template>
+</div>
+<div mat-dialog-actions align="end"><button mat-button mat-dialog-close>Fermer</button></div>

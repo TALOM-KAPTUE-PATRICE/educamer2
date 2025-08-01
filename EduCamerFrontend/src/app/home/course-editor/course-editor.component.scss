@@ -1,0 +1,81 @@
+.editor-container {
+    // On retire le padding pour que les onglets touchent les bords
+    padding: 0;
+}
+
+
+.editor-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 16px 24px; // On garde le padding ici
+    border-bottom: 1px solid #e2e8f0;
+    background-color: #f8fafc; // Un fond légèrement différent pour le header
+}
+
+.header-text h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.mat-chip.draft {
+    background-color: #e2e8f0;
+    color: #475569;
+}
+
+.mat-chip.published {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+// ...
+.header-text {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    h1 {
+        margin: 0;
+        font-size: 1.8rem;
+    }
+}
+
+.status-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 16px;
+    color: white;
+
+    &.status-draft {
+        background-color: #64748b;
+    }
+
+    &.status-published {
+        background-color: #16a34a;
+    }
+}
+
+// Amélioration des onglets Material
+::ng-deep .mat-mdc-tab-body-content {
+  // On ajoute un padding uniforme au contenu de chaque onglet
+  padding: 24px;
+}
+
+::ng-deep .mat-mdc-tab-header {
+  // On ajoute une bordure sous les onglets pour mieux les délimiter
+  border-bottom: 1px solid #e2e8f0 !important;
+}

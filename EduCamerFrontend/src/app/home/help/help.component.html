@@ -1,0 +1,23 @@
+<div class="help-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Demander de l'aide</mat-card-title>
+      <mat-card-subtitle>Un de nos tuteurs qualifiés vous viendra en aide.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="helpForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Sujet de votre demande</mat-label>
+          <input matInput formControlName="subject" placeholder="Ex: Blocage sur l'exercice 3 du chapitre 2">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Décrivez votre problème en détail</mat-label>
+          <textarea matInput formControlName="description" rows="10"></textarea>
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit" [disabled]="helpForm.invalid">
+          Envoyer ma demande
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

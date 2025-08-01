@@ -1,0 +1,57 @@
+<div class="parent-dashboard-container">
+  <header class="page-header">
+    <h1>Espace Parental</h1>
+    <p>Suivez le parcours académique de vos enfants et encouragez leur réussite.</p>
+  </header>
+
+  <!-- Grille principale : Liaison à gauche, Enfants à droite -->
+  <div class="main-grid">
+    <!-- Colonne de gauche : Formulaire de liaison -->
+    <mat-card class="link-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="link-icon">family_restroom</mat-icon>
+        <mat-card-title>Lier un nouveau compte</mat-card-title>
+        <mat-card-subtitle>Demandez le code de liaison à votre enfant</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content [formGroup]="linkForm">
+        <p class="instructions">
+          Pour des raisons de sécurité, votre enfant doit générer un <strong>code de liaison unique</strong>
+          depuis son profil. Ce code est valide 10 minutes.
+        </p>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email de l'enfant</mat-label>
+          <input matInput formControlName="studentEmail" type="email" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Code de liaison (6 chiffres)</mat-label>
+          <input matInput formControlName="linkingCode" maxlength="6" required>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="onLinkStudent()" [disabled]="linkForm.invalid || isLinking">
+          <mat-icon>link</mat-icon>
+          <span *ngIf="!isLinking">Lier le compte</span>
+          <span *ngIf="isLinking">Liaison en cours...</span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Colonne de droite : Liste des enfants -->
+    <div class="children-list-container">
+      <h2>Vos enfants</h2>
+      <div *ngIf="linkedStudents$ | async as students; else loading">
+        <div *ngIf="students.length > 0; else noChildren" class="children-grid">
+          <app-child-card *ngFor="let student of students" [student]="student"></app-child-card>
+        </div>
+        <ng-template #noChildren>
+          <div class="empty-state">
+            <mat-icon>person_add_disabled</mat-icon>
+            <p>Vous n'avez pas encore lié de compte enfant.</p>
+            <span>Utilisez le formulaire à gauche pour commencer.</span>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #loading><mat-spinner diameter="50"></mat-spinner></ng-template>
+    </div>
+  </div>
+</div>

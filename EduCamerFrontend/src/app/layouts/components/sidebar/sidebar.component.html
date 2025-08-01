@@ -1,0 +1,42 @@
+<!-- La classe principale "sidebar-container" est conservée pour cibler le composant -->
+<div class="sidebar-container" *ngIf="currentUser$ | async as user">
+  
+  <!-- Section Profil Utilisateur -->
+  <div class="profile-section">
+    <img [src]="user.avatarUrl || 'assets/welcome/profile.svg'" alt="Avatar de l'utilisateur" class="profile-avatar">
+    <h3 class="profile-name">{{ user.name }}</h3>
+    <p class="profile-role">{{ user.role }}</p>
+  </div>
+
+  <mat-nav-list>
+    <!-- On itère sur TOUS les liens -->
+    <ng-container *ngFor="let link of allNavLinks">
+      
+      <!-- On affiche le lien SEULEMENT si la permission requise est présente -->
+      <!-- 'authService.hasPermission' est une méthode que nous avons déjà définie -->
+      <a *ngIf="!link.requiredPermission || authService.hasPermission(link.requiredPermission)"
+         mat-list-item
+         [routerLink]="link.path" 
+         routerLinkActive="active-link"
+         [routerLinkActiveOptions]="{exact: true}"
+         class="nav-link">
+        <mat-icon matListItemIcon>{{ link.icon }}</mat-icon>
+        <span matListItemTitle>{{ link.label }}</span>
+      </a>
+
+    </ng-container>
+  </mat-nav-list>
+
+
+  <!-- Section Déconnexion (ne change pas, mais on connecte le bouton) -->
+  <div class="logout-section">
+    <a mat-list-item routerLink="/home/profile" class="nav-link">
+      <mat-icon matListItemIcon>settings</mat-icon>
+      <span matListItemTitle>Paramètres du compte</span>
+    </a>
+    <a mat-list-item (click)="authService.logout()" class="nav-link logout-link">
+      <mat-icon matListItemIcon>exit_to_app</mat-icon>
+      <span matListItemTitle>Déconnexion</span>
+    </a>
+  </div>
+</div>

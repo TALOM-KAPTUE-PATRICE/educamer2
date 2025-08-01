@@ -1,0 +1,34 @@
+<div class="settings-container">
+  <h3>Paramètres Généraux</h3>
+  <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()" class="settings-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Titre du cours</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="6"></textarea>
+    </mat-form-field>
+    <button mat-flat-button color="primary" [disabled]="settingsForm.invalid || !settingsForm.dirty">
+      Enregistrer les modifications
+    </button>
+  </form>
+
+  <mat-divider></mat-divider>
+
+  <h3>Image de couverture</h3>
+  <div class="cover-image-section">
+    <!-- On utilise la variable de prévisualisation -->
+    <div class="image-preview-wrapper">
+      <img [src]="coverPreviewUrl || 'assets/welcome/course.svg'" class="current-cover">
+      <div class="upload-spinner-overlay" *ngIf="isUploading">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+    </div>
+    <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+    <button mat-stroked-button (click)="fileInput.click()" [disabled]="isUploading">
+      <mat-icon>upload_file</mat-icon>
+      Changer l'image
+    </button>
+  </div>
+</div>

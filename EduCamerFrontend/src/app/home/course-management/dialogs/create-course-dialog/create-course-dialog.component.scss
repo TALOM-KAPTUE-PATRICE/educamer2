@@ -1,0 +1,41 @@
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 24px 0 24px;
+}
+
+.header-icon-wrapper {
+  background-color: #e0f2fe; // Bleu très clair
+  color: #0ea5e9; // Bleu
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  mat-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.header-text {
+  h1 { margin: 0; }
+  p { margin: 0; color: #64748b; }
+}
+
+mat-dialog-content {
+  padding-top: 24px;
+}
+
+.mat-mdc-form-field {
+  margin-bottom: 8px;
+}
+
+.full-width{
+    margin-right: 5%;
+    width: 90%;
+}

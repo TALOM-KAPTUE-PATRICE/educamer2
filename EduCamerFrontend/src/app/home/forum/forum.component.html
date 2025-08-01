@@ -1,0 +1,39 @@
+<div class="forum-container">
+  <div class="forum-header">
+    <div class="header-text">
+      <h1>Forum de Discussion</h1>
+      <p>Échangez avec les autres participants et l'instructeur.</p>
+    </div>
+    <button mat-flat-button color="primary" (click)="openCreateThreadDialog()">
+      <mat-icon>add</mat-icon> Démarrer une discussion
+    </button>
+  </div>
+
+  <div class="thread-list-container" *ngIf="threads$ | async as threads; else loading">
+    <div *ngIf="threads.length > 0; else noThreads">
+      <mat-list>
+        <mat-list-item *ngFor="let thread of threads" [routerLink]="['/home/forum/thread', thread.id]" class="thread-item">
+          <mat-icon matListItemIcon class="thread-icon">forum</mat-icon>
+          <div matListItemTitle class="thread-title">{{ thread.title }}</div>
+          <div matListItemLine class="thread-meta">
+            <span>Par <strong>{{ thread.authorName }}</strong></span>
+            <span>•</span>
+            <span>{{ thread.createdAt | date:'dd MMM yyyy' }}</span>
+          </div>
+          <div matListItemMeta class="thread-replies">
+            <span>{{ thread.posts.length || 0 }}</span>
+            <mat-icon>chat_bubble_outline</mat-icon>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <ng-template #noThreads>
+      <div class="empty-state">
+        <mat-icon>question_answer</mat-icon>
+        <h3>Aucune discussion pour le moment</h3>
+        <p>Soyez le premier à poser une question !</p>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #loading><div class="loading-spinner"><mat-spinner></mat-spinner></div></ng-template>
+</div>

@@ -1,0 +1,231 @@
+/* ==============================================
+   VARIABLES
+   ============================================== */
+:host {
+  --header-bg: #ffffff;
+  --header-text: #2d3748; // Texte gris foncé
+  --header-border: #e2e8f0; // Bordure gris clair
+  --icon-button-hover-bg: #edf2f7; // Fond très clair au survol
+  --sidebar-blue: #2b6cb0; // On récupère la couleur de la sidebar pour des accents
+}
+
+/* ==============================================
+   STYLE DE BASE DU HEADER
+   ============================================== */
+:host {
+  display: block;
+  width: 100%;
+  // On place le header au-dessus des autres contenus
+  position: relative;
+  z-index: 10;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  height: 64px;
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  border-bottom: 1px solid var(--header-border);
+}
+
+/* ==============================================
+   SECTION GAUCHE (TITRE)
+   ============================================== */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+
+  // Optionnel: cacher le bouton menu sur grand écran si la sidebar est toujours visible
+  @media (min-width: 960px) {
+    display: none;
+  }
+}
+
+.app-title {
+  margin-left: 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--sidebar-blue); // Utilise la couleur de la sidebar pour le titre
+}
+
+/* ==============================================
+   SECTION DROITE (ACTIONS)
+   ============================================== */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // Espacement réduit
+
+  mat-divider {
+    height: 32px;
+    margin: 0 8px;
+  }
+}
+
+// Style global pour les boutons icônes
+.action-buttons button[mat-icon-button] {
+  color: #718096; // Icônes grises
+  transition: background-color 150ms ease, color 150ms ease;
+
+  &:hover {
+    background-color: var(--icon-button-hover-bg);
+    color: var(--sidebar-blue);
+  }
+}
+
+// Style pour le sélecteur de rôle
+.role-selector {
+  width: 12rem;
+  font-size: 0.8rem;
+
+  // On surcharge les styles Material pour qu'ils soient plus compacts
+  ::ng-deep .mat-mdc-form-field-flex {
+    height: 40px;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 40px !important;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+
+/* ==============================================
+   PROFIL UTILISATEUR
+   ============================================== */
+
+// Nouveau style pour le bouton de profil cliquable
+.user-profile-button {
+  padding: 0 !important;
+  border-radius: 20px;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background-color: var(--icon-button-hover-bg, #edf2f7);
+  }
+}
+mat-menu{
+  background-color: white;
+}
+.user-profile {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 20px;
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: background-color 200ms ease, box-shadow 200ms ease;
+
+  &:hover {
+    background-color: #edf2f7;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .user-name {
+    margin-right: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 0.9rem;
+    color: #4a5568; // Texte un peu plus foncé
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 12px;
+
+    @media (max-width: 768px) {
+      // Sur mobile, on cache le texte
+      display: none;
+    }
+  }
+
+  .user-role {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: #718096;
+    text-transform: capitalize;
+  }
+
+  .profile-arrow {
+    color: #a0aec0;
+    transition: transform 200ms ease;
+  }
+
+  // Faire tourner la flèche quand le menu est ouvert
+  &[aria-expanded="true"] .profile-arrow {
+    transform: rotate(180deg);
+  }
+
+}
+
+// --- Style pour le Menu Déroulant ---
+// Ces styles sont globaux car le menu est injecté à la racine du body,
+// donc ::ng-deep est nécessaire si ce style est dans un composant encapsulé.
+// Ou mieux, placez-les dans votre styles.scss global.
+::ng-deep .mat-mdc-menu-panel {
+  .menu-header {
+    padding: 8px 16px;
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #718096;
+    }
+    strong {
+      font-size: 0.9rem;
+    }
+  }
+
+  .logout-item {
+    color: #ef4444; // Texte en rouge
+    .mat-icon {
+      color: #ef4444; // Icône en rouge
+    }
+  }
+}
+
+
+/* ==============================================
+   RESPONSIVE
+   ============================================== */
+@media (max-width: 768px) {
+  .user-name {
+    display: none;
+  }
+
+  .app-header {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .role-selector {
+    display: none;
+  }
+
+  .app-title {
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,136 @@
+<div class="page-container">
+  <!-- En-tête de la page -->
+  <header class="page-header">
+    <div class="header-content">
+      <button mat-icon-button routerLink="/" class="back-button" aria-label="Retour à l'accueil">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>Devenez un Pilier de la Réussite Scolaire</h1>
+      <p>Rejoignez notre équipe d'éducateurs passionnés et partagez votre savoir avec des milliers d'élèves.</p>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Colonne des avantages -->
+    <section class="benefits-panel">
+      <h2>Pourquoi enseigner sur EduCamer ?</h2>
+      <ul>
+        <li><mat-icon color="primary">public</mat-icon> <span>Atteignez une audience nationale et ayez un impact
+            réel.</span></li>
+        <li><mat-icon color="primary">edit_calendar</mat-icon> <span>Travaillez avec flexibilité, selon votre propre
+            emploi du temps.</span></li>
+        <li><mat-icon color="primary">payments</mat-icon> <span>Bénéficiez d'une rémunération attractive et
+            transparente.</span></li>
+        <li><mat-icon color="primary">groups</mat-icon> <span>Rejoignez une communauté d'enseignants dynamiques et
+            innovants.</span></li>
+      </ul>
+    </section>
+
+    <!-- Colonne du formulaire Stepper -->
+    <section class="form-panel">
+      <mat-card>
+        <mat-card-title>Formulaire de Candidature</mat-card-title>
+        <mat-card-content>
+          <mat-stepper [orientation]="(stepperOrientation | async)!" linear #stepper>
+
+            <!-- Étape 1: Informations Personnelles -->
+            <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Votre Projet avec Nous</ng-template>
+                <h2>Comment souhaitez-vous contribuer ?</h2>
+
+                <!-- NOUVEAU: Sélecteur de rôle visuel -->
+                <mat-radio-group formControlName="desiredRole" class="role-selector">
+                  <mat-radio-button value="INSTRUCTOR" class="role-option">
+                    <div class="role-content">
+                      <mat-icon>cast_for_education</mat-icon>
+                      <div class="role-text">
+                        <strong>Devenir Instructeur</strong>
+                        <span>Créez et vendez vos propres cours sur notre plateforme.</span>
+                      </div>
+                    </div>
+                  </mat-radio-button>
+                  <mat-radio-button value="TUTOR" class="role-option">
+                    <div class="role-content">
+                      <mat-icon>support_agent</mat-icon>
+                      <div class="role-text">
+                        <strong>Devenir Tuteur</strong>
+                        <span>Aidez les élèves en difficulté dans vos matières de prédilection.</span>
+                      </div>
+                    </div>
+                  </mat-radio-button>
+                </mat-radio-group>
+
+                <mat-divider></mat-divider>
+
+                <h3>Vos Coordonnées</h3>
+
+                <mat-form-field>
+                  <mat-label>Nom complet</mat-label>
+                  <input matInput formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" type="email" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Téléphone</mat-label>
+                  <input matInput formControlName="phone" required>
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperNext>Suivant</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Étape 2: Expérience et Motivation -->
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Votre expertise</ng-template>
+                <mat-form-field>
+                  <mat-label>Vos matières de prédilection (ex: Maths, Physique)</mat-label>
+                  <input matInput formControlName="specializations" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Parlez-nous de votre motivation (50 caractères min)</mat-label>
+                  <textarea matInput formControlName="motivation" rows="5" required></textarea>
+                </mat-form-field>
+
+                <div class="file-upload-container">
+                  <button type="button" mat-stroked-button (click)="fileUploader.click()">
+                    <mat-icon>attach_file</mat-icon>
+                    Joindre votre CV (PDF)
+                  </button>
+                  <input hidden type="file" #fileUploader (change)="onFileSelected($event)" accept=".pdf">
+                  <span class="file-name" *ngIf="fileName">{{ fileName }}</span>
+                </div>
+
+                <div>
+                  <button mat-button matStepperPrevious>Précédent</button>
+                  <button mat-button matStepperNext>Finaliser</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Étape 3: Confirmation -->
+            <!-- Étape 3: Confirmation (Maintenant, elle ouvre la dialogue) -->
+            <mat-step>
+              <ng-template matStepLabel>Vérification</ng-template>
+              <div class="confirmation-step">
+                <h3>Vous y êtes presque !</h3>
+                <p>Cliquez sur le bouton ci-dessous pour vérifier une dernière fois vos informations avant de nous
+                  envoyer votre candidature.</p>
+                <div>
+                  <button mat-button matStepperPrevious>Précédent</button>
+                  <button mat-raised-button color="primary" (click)="openReviewDialog()">
+                    Vérifier et Soumettre
+                  </button>
+                </div>
+              </div>
+            </mat-step>
+          </mat-stepper>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </main>
+</div>

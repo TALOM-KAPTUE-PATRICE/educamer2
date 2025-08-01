@@ -1,0 +1,73 @@
+/* src/styles.scss - Fichier principal avec TOUTE la configuration */
+// 1. Importe les fonctions et mixins de Material.
+// C'est la seule importation nécessaire ici.
+
+
+@use '@angular/material' as mat;
+
+// 2. Inclut les styles de base obligatoires de Material.
+@include mat.core();
+
+// 3. Définition de vos palettes de couleurs personnalisées
+$azure-blue-primary-palette: (
+  50: #e3f2fd, 100: #bbdefb, 200: #90caf9, 300: #64b5f6, 400: #42a5f5,
+  500: #2196f3, 600: #1e88e5, 700: #1976d2, 800: #1565c0, 900: #0d47a1,
+  contrast: (
+    50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000,
+    500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff,
+  )
+);
+
+$azure-blue-accent-palette: (
+  50: #fce4ec, 100: #f8bbd0, 200: #f48fb1, 300: #f06292, 400: #ec407a,
+  500: #e91e63, 600: #d81b60, 700: #c2185b, 800: #ad1457, 900: #880e4f,
+  contrast: (
+    50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000,
+    500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff,
+  )
+);
+
+// // 4. Création des objets de palette Material
+// $educamer-primary: mat.define-palette($azure-blue-primary-palette, 500);
+// $educamer-accent: mat.define-palette($azure-blue-accent-palette, 500, A200, A400);
+// $educamer-warn: mat.define-palette(mat.$red-palette);
+
+// // 5. Création de l'objet thème complet
+// $educamer-theme: mat.define-light-theme((
+//   color: (
+//     primary: $educamer-primary,
+//     accent: $educamer-accent,
+//     warn: $educamer-warn,
+//   )
+// ));
+
+// // 6. Application du thème à tous les composants Material
+// @include mat.all-component-themes($educamer-theme);
+
+
+// 7. Styles globaux restants
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #f44336; // Rouge
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+}
+
+// NOUVEAU: Style pour les messages de succès
+.success-snackbar {
+  --mdc-snackbar-container-color: #4caf50; // Vert
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+}
+
+// NOUVEAU: Style pour les messages d'information
+.info-snackbar {
+    --mdc-snackbar-container-color: #2196f3; // Bleu
+    --mat-mdc-snack-bar-button-color: #ffffff;
+    --mdc-snackbar-supporting-text-color: #ffffff;
+}

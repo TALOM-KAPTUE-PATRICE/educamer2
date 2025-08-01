@@ -1,0 +1,38 @@
+<div class="dialog-header">
+  <div class="header-icon-wrapper">
+    <mat-icon>post_add</mat-icon>
+  </div>
+  <div class="header-text">
+    <h1 mat-dialog-title>Ajouter une nouvelle leçon</h1>
+    <p mat-dialog-subtitle>Rédigez le titre et le contenu principal de cette leçon.</p>
+  </div>
+</div>
+
+<mat-dialog-content>
+  <form [formGroup]="lessonForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titre de la leçon</mat-label>
+      <input matInput formControlName="title" required cdkFocusInitial
+             placeholder="Ex: Les équations du premier degré">
+      <mat-error>Le titre est requis.</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contenu principal</mat-label>
+      <!-- cdkTextareaAutosize permet au textarea de grandir avec le contenu -->
+      <textarea matInput formControlName="content" rows="8" required
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="8"
+                cdkAutosizeMaxRows="20"
+                placeholder="Écrivez le contenu de votre leçon ici. Vous pourrez ajouter des fichiers et des vidéos plus tard..."></textarea>
+      <mat-error>Le contenu est requis.</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="lessonForm.value" [disabled]="lessonForm.invalid">
+    Ajouter la leçon
+  </button>
+</mat-dialog-actions>

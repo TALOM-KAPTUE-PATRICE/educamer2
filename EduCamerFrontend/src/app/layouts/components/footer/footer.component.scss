@@ -1,0 +1,63 @@
+// On s'assure que le composant prend toute la largeur
+:host {
+  display: block;
+  width: 100%;
+}
+
+// Variables pour les couleurs du footer
+$footer-bg: #2d3748;      // Équivalent de bg-gray-800
+$footer-text: #ffffff;
+$link-hover-color: #63b3ed; // Équivalent de hover:text-blue-400
+
+// Classe principale pour le footer
+.app-footer {
+  background-color: $footer-bg;
+  color: $footer-text;
+  padding: 1rem; // p-4
+  text-align: center; // text-center
+  font-size: 0.875rem; // text-sm
+}
+
+// Le texte du copyright
+.copyright-text {
+  margin: 0; // Enlève la marge par défaut des paragraphes
+}
+
+// Le conteneur pour les liens
+.footer-links {
+  display: flex;
+  justify-content: center; // justify-center
+  align-items: center;
+  margin-top: 0.5rem; // mt-2
+  gap: 1rem; // Remplace space-x-4
+}
+
+// Style pour chaque lien
+.footer-link {
+  color: inherit; // Hérite de la couleur du texte du parent (.app-footer)
+  text-decoration: none; // Enlève le soulignement par défaut
+  transition: color 200ms ease-in-out;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+// Style pour le séparateur, si on veut lui donner une couleur différente
+.separator {
+  color: #718096; // Une couleur un peu plus discrète
+}
+
+// --- Styles pour le Responsive ---
+// Sur les très petits écrans, on peut passer les liens en colonne
+@media (max-width: 480px) {
+  .footer-links {
+    flex-direction: column;
+    gap: 0.5rem; // Réduit l'espacement vertical
+  }
+
+  // Cacher les séparateurs en mode colonne
+  .separator {
+    display: none;
+  }
+}

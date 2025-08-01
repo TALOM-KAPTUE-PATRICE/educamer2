@@ -1,0 +1,64 @@
+<div class="dialog-header">
+  <h1 mat-dialog-title>Ajouter une ressource</h1>
+  <p mat-dialog-subtitle>Sélectionnez un type puis ajoutez un nom et un fichier ou un lien.</p>
+</div>
+
+<mat-dialog-content>
+  <form [formGroup]="resourceForm">
+    
+    <!-- Étape 1: Sélecteur de Type avec icônes -->
+    <label class="form-label">1. Choisissez le type de ressource</label>
+    <mat-button-toggle-group formControlName="type" aria-label="Type de ressource">
+      <mat-button-toggle value="PDF"><mat-icon>picture_as_pdf</mat-icon> PDF</mat-button-toggle>
+      <mat-button-toggle value="VIDEO"><mat-icon>smart_display</mat-icon> Vidéo</mat-button-toggle>
+      <mat-button-toggle value="IMAGE"><mat-icon>image</mat-icon> Image</mat-button-toggle>
+      <mat-button-toggle value="LINK"><mat-icon>link</mat-icon> Lien</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- Étape 2: Détails (apparaît après sélection du type) -->
+    <div *ngIf="resourceForm.get('type')?.value" class="details-section" [@fadeInOut]>
+      <label class="form-label">2. Ajoutez les détails</label>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nom de la ressource</mat-label>
+        <input matInput formControlName="name" placeholder="Ex: Chapitre 1 - Introduction" required>
+      </mat-form-field>
+
+      <!-- Champ URL (animé) -->
+      <mat-form-field *ngIf="resourceForm.get('type')?.value === 'LINK'" appearance="outline" class="full-width" [@fadeInOut]>
+        <mat-label>URL du lien</mat-label>
+        <input matInput formControlName="url" placeholder="https://exemple.com/article">
+      </mat-form-field>
+      
+      <!-- Zone de dépôt de fichier (animée) -->
+      <div *ngIf="resourceForm.get('type')?.value !== 'LINK'" 
+           class="file-drop-zone" 
+           (click)="fileInput.click()" 
+           (dragover)="onDragOver($event)" 
+           (dragleave)="onDragLeave($event)" 
+           (drop)="onDrop($event)"
+           [class.drag-over]="isDragOver"
+           [@fadeInOut]>
+        <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+        <div *ngIf="!selectedFile" class="prompt">
+          <mat-icon>cloud_upload</mat-icon>
+          <span>Cliquez ou déposez un fichier ici</span>
+        </div>
+        <div *ngIf="selectedFile" class="file-info">
+          <mat-icon>check_circle</mat-icon>
+          <span>{{ selectedFile.name }}</span>
+          <button mat-icon-button color="warn" (click)="removeFile($event)" matTooltip="Supprimer le fichier">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="!isFormValid()">
+    Ajouter la ressource
+  </button>
+</mat-dialog-actions>

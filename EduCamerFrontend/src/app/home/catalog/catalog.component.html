@@ -1,0 +1,31 @@
+<div class="catalog-container">
+  <header class="catalog-header">
+    <h1>Explorez notre Catalogue de Cours</h1>
+    <p>Trouvez le cours parfait pour atteindre vos objectifs académiques.</p>
+  </header>
+
+  <!-- Filtres par catégorie -->
+  <mat-chip-listbox class="category-filters" aria-label="Filtrer les cours par catégorie">
+    <mat-chip-option selected (click)="selectCategory('all')">Tous les cours</mat-chip-option>
+    <mat-chip-option *ngFor="let category of categories$ | async" (click)="selectCategory(category.id)">
+      {{ category.name }}
+    </mat-chip-option>
+  </mat-chip-listbox>
+
+  <!-- Grille des cours -->
+  <div class="course-grid" *ngIf="filteredCourses$ | async as courses; else loading">
+    <app-course-card *ngFor="let course of courses" [course]="course">
+      <!-- Projection de contenu pour ajouter un bouton d'inscription -->
+    <!-- Le bouton ne s'affiche que si l'élève n'est pas déjà inscrit -->
+    <button *ngIf="!isParent  && !isEnrolled(course.id) "
+            mat-flat-button color="primary" class="enroll-button" 
+            (click)="enroll(course.id, $event)">
+      S'inscrire
+    </button>
+    </app-course-card>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-spinner"><mat-spinner></mat-spinner></div>
+  </ng-template>
+</div>

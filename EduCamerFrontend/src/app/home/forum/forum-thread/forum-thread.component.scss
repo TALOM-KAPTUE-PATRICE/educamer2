@@ -1,0 +1,60 @@
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.thread-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.thread-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  h1 { font-size: 2rem; font-weight: 700; margin: 0; line-height: 1.2; }
+}
+
+.thread-meta {
+  font-size: 0.9rem;
+  color: #64748b;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-card {
+  animation: slideInUp 0.5s ease-out forwards;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  
+  // Mettre en valeur le message de l'auteur du thread
+  &.author-post {
+    border-left: 4px solid var(--mat-primary-500, #3f51b5);
+  }
+}
+
+.mat-mdc-card-header {
+  .post-actions {
+    margin-left: auto; // Pousse le menu à droite
+  }
+}
+
+.post-content {
+  // Style pour le contenu HTML
+  line-height: 1.7;
+  p { margin-bottom: 1em; }
+  ul, ol { padding-left: 20px; }
+}
+
+.reply-card {
+  margin-top: 32px;
+  background-color: #f8fafc;
+}

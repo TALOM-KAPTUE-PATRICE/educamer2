@@ -1,0 +1,46 @@
+<div class="dialog-header">
+  <h1 mat-dialog-title>{{ data.assignment ? 'Modifier le devoir' : 'Ajouter un devoir' }}</h1>
+</div>
+<mat-dialog-content>
+  <form [formGroup]="assignmentForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titre du devoir</mat-label>
+      <input matInput formControlName="title" required cdkFocusInitial>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description / Consignes</mat-label>
+      <textarea matInput formControlName="description" rows="6" required></textarea>
+    </mat-form-field>
+    
+    <!-- Amélioration: Sélecteur de date -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Date limite (optionnel)</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Amélioration: Zone de dépôt de fichier plus stylée -->
+    <div class="file-drop-zone" (click)="fileInput.click()">
+      <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+      <div *ngIf="!fileName" class="prompt">
+        <mat-icon>cloud_upload</mat-icon>
+        <span>Cliquez ou déposez une pièce jointe (PDF, Image...)</span>
+      </div>
+      <div *ngIf="fileName" class="file-info">
+        <mat-icon>attachment</mat-icon>
+        <span>{{ fileName }}</span>
+        <button mat-icon-button color="warn" (click)="removeFile($event)" matTooltip="Supprimer le fichier">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="assignmentForm.invalid">
+    Sauvegarder
+  </button>
+</mat-dialog-actions>

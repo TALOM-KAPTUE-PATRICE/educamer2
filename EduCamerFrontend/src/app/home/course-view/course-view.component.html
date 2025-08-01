@@ -1,0 +1,75 @@
+<div class="course-view-container" *ngIf="courseData$ | async as course">
+  <mat-sidenav-container class="course-content-container">
+    
+    <mat-sidenav #sidenav class="lesson-sidebar" 
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
+                 [opened]="(isHandset$ | async) === false">
+      <div class="sidebar-header">
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.lessons.length }} leçons</p>
+      </div>
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let lesson of course.lessons" 
+           (click)="selectLesson(lesson)"
+           [class.active]="(selectedLesson$ | async)?.id === lesson.id"
+           [class.locked]="!lesson.isAccessible"
+           [matTooltip]="!lesson.isAccessible ? 'Complétez la leçon précédente pour débloquer' : ''">
+          
+          <mat-icon matListItemIcon [ngClass]="{'completed-icon': lesson.isCompleted, 'locked-icon': !lesson.isAccessible}">
+            {{ lesson.isCompleted ? 'check_circle' : (lesson.isAccessible ? 'play_circle_outline' : 'lock') }}
+          </mat-icon>
+          <span matListItemTitle>{{ lesson.title }}</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="lesson-content-area">
+      <div class="course-main-header">
+        <button *ngIf="isHandset$ | async" mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h2>{{ (selectedLesson$ | async)?.title || 'Bienvenue dans le cours' }}</h2>
+        <span class="spacer"></span>
+        <button mat-stroked-button color="primary" [routerLink]="['/home/course', course.id, 'forum']">
+          <mat-icon>forum</mat-icon>
+          <span>Forum de Discussion</span>
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="lesson-view-wrapper">
+        <div *ngIf="lessonDetails$ | async as lesson; else selectPrompt" class="lesson-details-content">
+          <div class="content" [innerHTML]="lesson.content | safeHtml"></div>
+          
+          <app-resource-list *ngIf="lesson.resources" [resources]="lesson.resources"></app-resource-list>
+          
+          <mat-card *ngIf="lesson.quiz && !lesson.isCompleted" class="quiz-card">
+            <mat-card-header>
+              <mat-icon mat-card-avatar>quiz</mat-icon>
+              <mat-card-title>Validez vos connaissances</mat-card-title>
+              <mat-card-subtitle>Réussissez ce quiz pour débloquer la suite du cours.</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-flat-button color="primary" (click)="takeQuiz(lesson.quiz)">
+                Démarrer le Quiz : {{ lesson.quiz.title }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+
+          <div *ngIf="lesson.isCompleted" class="completion-message">
+            <mat-icon>check_circle</mat-icon>
+            <span>Bravo, vous avez terminé cette leçon !</span>
+          </div>
+        </div>
+
+        <ng-template #selectPrompt>
+          <div class="prompt">
+            <mat-icon>touch_app</mat-icon>
+            <h2>Bienvenue dans "{{ course.title }}"</h2>
+            <p>Sélectionnez une leçon dans le menu de gauche pour commencer votre apprentissage.</p>
+          </div>
+        </ng-template>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

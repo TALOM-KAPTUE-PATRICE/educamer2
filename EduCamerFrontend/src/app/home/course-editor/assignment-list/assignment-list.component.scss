@@ -1,0 +1,45 @@
+.list-container {
+  // padding: 24px; // Le padding est maintenant géré par le parent
+}
+
+.list-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  .info h3 { margin: 0; font-size: 1.5rem; }
+  .info p { margin: 0; color: #64748b; }
+}
+
+.table-container {
+  border-radius: 8px;
+  overflow: hidden; // Pour que le border-radius s'applique à la table
+}
+
+.mat-mdc-table {
+  width: 100%;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 500;
+  color: rgba(0,0,0,.6);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  border: 2px dashed #e2e8f0;
+  border-radius: 8px;
+  color: #94a3b8;
+  text-align: center;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+}

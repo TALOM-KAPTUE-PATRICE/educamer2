@@ -1,0 +1,155 @@
+/* ==============================================
+   VARIABLES
+   Centraliser les valeurs pour une maintenance facile
+   ============================================== */
+:host {
+  // Définition des variables de thème au niveau du composant
+  --sidebar-bg: #2b6cb0;           // Bleu foncé
+  --sidebar-text: #e2e8f0;         // Texte blanc cassé, plus doux pour les yeux
+  --sidebar-border: #2c5282;       // Bleu un peu plus sombre pour les bordures
+  --profile-role-text: #90cdf4;    // Bleu clair pour le rôle
+  --link-hover-bg: #2c5282;        // Fond au survol
+  --link-active-bg: #1a365d;       // Fond du lien actif, plus sombre et distinct
+  --link-active-text: #ffffff;     // Texte blanc pur pour le lien actif
+  --logout-hover-bg: #c53030;      // Rouge pour l'action de déconnexion
+  --logout-icon-color: #f56565;    // Rouge clair pour l'icône de déconnexion
+}
+
+/* ==============================================
+   STYLE DE BASE DU COMPOSANT
+   ============================================== */
+:host {
+  display: block;
+  height: 100%;
+  background-color: var(--sidebar-bg);
+}
+
+.sidebar-container {
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ==============================================
+   SECTION PROFIL UTILISATEUR
+   ============================================== */
+.profile-section {
+  padding: 1.5rem 1rem; // Plus d'espace vertical
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid var(--sidebar-border);
+  flex-shrink: 0;
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--profile-role-text);
+    margin-bottom: 0.75rem;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); // Ajout d'une ombre pour la profondeur
+  }
+
+  .profile-name {
+    font-weight: 600; // Un peu plus gras que "bold"
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .profile-role {
+    font-size: 0.8rem;
+    color: var(--profile-role-text);
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+}
+
+/* ==============================================
+   LISTE DE NAVIGATION (Cœur de l'optimisation)
+   ============================================== */
+mat-nav-list {
+  flex-grow: 1;
+  padding: 1rem 0.75rem; // Espacement intérieur
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+}
+
+// Style global pour TOUS les liens de la sidebar
+.nav-link {
+  // --- Correction #1: Enlever le soulignement ---
+  text-decoration: none;
+  
+  // --- Correction #2: Espacement et alignement ---
+  display: flex !important; // Important pour surcharger le style de mat-list-item
+  align-items: center;
+  margin-bottom: 0.5rem; // Espace entre les liens
+  padding: 0.75rem 1rem !important; // Padding intérieur pour une meilleure zone de clic
+  border-radius: 8px; // Bords arrondis
+  height: auto !important; // Permet au padding de définir la hauteur
+
+  // --- Correction #3: Couleur et transitions ---
+  color: var(--sidebar-text);
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out, transform 150ms ease;
+
+  .mat-icon {
+    margin-right: 16px; // Espace entre l'icône et le texte
+    color: inherit; // L'icône prend la même couleur que le texte
+    transition: color 200ms ease-in-out;
+  }
+  
+  // --- Effet de survol (hover) ---
+  &:hover {
+    background-color: var(--link-hover-bg);
+    transform: translateX(3px); // Petit décalage subtil au survol
+  }
+}
+
+// Style pour le lien ACTIF
+.active-link {
+  background-color: var(--link-active-bg);
+  color: var(--link-active-text);
+  font-weight: 600; // Texte plus visible pour le lien actif
+  box-shadow: inset 3px 0 0 var(--profile-role-text); // Ajoute une barre latérale colorée
+
+  .mat-icon {
+    color: var(--link-active-text);
+  }
+}
+
+
+/* ==============================================
+   SECTION DÉCONNEXION
+   ============================================== */
+.logout-section {
+  padding: 0.75rem;
+  border-top: 1px solid var(--sidebar-border);
+  flex-shrink: 0;
+
+  // Le style global .nav-link s'applique déjà, on ajoute juste la spécificité pour le hover
+  .logout-link {
+    .mat-icon {
+      color: var(--logout-icon-color);
+    }
+
+    &:hover {
+      background-color: var(--logout-hover-bg);
+      transform: translateX(0); // On annule l'effet de décalage pour ce bouton
+
+      // Le texte et l'icône deviennent blancs au survol
+      .mat-icon, span {
+        color: white;
+      }
+    }
+  }
+}

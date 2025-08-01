@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite à votre candidature sur EduCamer</title>
+    <style>
+        /* Mêmes styles que le template de bienvenue pour la cohérence */
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; margin: 0; padding: 0; background-color: #f4f7f6; }
+        .container { max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }
+        .header { background-color: #4a5568; color: white; padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content { padding: 30px; color: #4a5568; line-height: 1.6; }
+        .content h2 { color: #2d3748; }
+        .reason-box { background-color: #fef2f2; border: 1px solid #fecaca; padding: 20px; margin: 20px 0; border-radius: 5px; color: #991b1b; }
+        .footer { text-align: center; padding: 20px; font-size: 12px; color: #718096; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Suite à votre candidature d'Instructeur</h1>
+        </div>
+        <div class="content">
+            <h2>Bonjour <span th:text="${candidateName}">[Nom du Candidat]</span>,</h2>
+            <p>
+                Nous vous remercions de l'intérêt que vous portez à EduCamer et d'avoir pris le temps de soumettre votre candidature pour devenir instructeur sur notre plateforme.
+            </p>
+            <p>
+                Après une étude attentive de votre profil, nous avons le regret de vous informer que nous ne pouvons pas donner une suite favorable à votre demande pour le moment.
+            </p>
+            
+            <div class="reason-box">
+                <p><strong>Raison de la décision :</strong></p>
+                <p th:text="${rejectionReason}">[Raison du rejet fournie par l'admin]</p>
+            </div>
+
+            <p>
+                Cette décision n'est pas une remise en cause de vos compétences. Nous recevons un grand nombre de candidatures et nos critères de sélection sont très spécifiques à nos besoins actuels.
+            </p>
+            <p>
+                Nous vous encourageons à consulter nos offres à l'avenir et nous vous souhaitons beaucoup de succès dans vos projets.
+            </p>
+
+            <p style="margin-top: 30px;">
+                Cordialement,<br>
+                L'équipe de recrutement EduCamer
+            </p>
+        </div>
+        <div class="footer">
+            <p>© <span th:text="${#dates.year(#dates.createNow())}">2024</span> EduCamer. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>

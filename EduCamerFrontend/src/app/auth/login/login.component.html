@@ -1,0 +1,88 @@
+<div class="login-wrapper">
+  <div class="login-container">
+
+    <!-- Colonne de Gauche : Illustration -->
+    <div class="illustration-panel">
+      <img src="assets/auth/login.svg" alt="Illustration de connexion à la plateforme EduCamer">
+    </div>
+
+    <!-- Colonne de Droite : Formulaire -->
+    <div class="form-panel">
+      <mat-card class="login-card">
+
+        <a routerLink="/welcome" mat-icon-button class="back-button" matTooltip="Retour à l'accueil">
+          <mat-icon>close</mat-icon>
+        </a>
+
+        <!-- Logo de l'application -->
+        <div class="logo-container">
+          <!-- Remplacez par votre logo. Si c'est juste du texte, vous pouvez le styler. -->
+          <!-- <img src="assets/logo.svg" alt="Logo EduCamer" class="app-logo"> -->
+          <!-- Si vous n'avez pas de logo image, utilisez ceci : -->
+          <h1 class="app-logo-text">EduCamer</h1>
+        </div>
+
+        <!-- Titre et Message de Bienvenue -->
+        <mat-card-header class="login-header">
+          <mat-card-title>Heureux de vous revoir !</mat-card-title>
+          <mat-card-subtitle>Connectez-vous pour reprendre votre parcours d'apprentissage.</mat-card-subtitle>
+        </mat-card-header>
+
+        <!-- Contenu du Formulaire -->
+        <mat-card-content>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <!-- Champ Email -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Adresse Email</mat-label>
+              <input matInput formControlName="email" type="email" required>
+              <mat-icon matPrefix color="primary">alternate_email</mat-icon>
+              <mat-error *ngIf="loginForm.get('email')?.hasError('required')">L'email est requis.</mat-error>
+              <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Veuillez entrer une adresse email
+                valide.</mat-error>
+            </mat-form-field>
+
+            <!-- Champ Mot de passe -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Mot de passe</mat-label>
+              <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+              <mat-icon matPrefix color="primary">lock</mat-icon>
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button"
+                aria-label="Afficher/Masquer le mot de passe">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Le mot de passe est requis.</mat-error>
+            </mat-form-field>
+
+            <!-- Actions du formulaire : Mot de passe oublié -->
+            <div class="form-actions">
+              <a routerLink="/auth/forgot-password" class="forgot-password-link">Mot de passe oublié ?</a>
+            </div>
+
+            <button mat-raised-button color="primary" class="submit-button" type="submit"
+              [disabled]="loginForm.invalid || isLoading">
+
+              <!-- On utilise une classe CSS pour gérer l'affichage -->
+              <span class="button-text" [class.hidden]="isLoading">Se Connecter</span>
+
+              <!-- Le spinner est toujours présent mais caché/affiché par CSS -->
+              <span class="button-spinner" [class.visible]="isLoading">
+                <mat-spinner diameter="24"></mat-spinner>
+              </span>
+
+            </button>
+          </form>
+
+          <!-- Séparateur et lien vers l'inscription -->
+          <div class="separator">
+            <span>ou</span>
+          </div>
+          <a routerLink="/auth/register" mat-stroked-button class="full-width">Créer un nouveau compte</a>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,69 @@
+<div class="dashboard-container" *ngIf="currentUser$ | async as user">
+
+  <!-- Bannière de bienvenue -->
+  <app-welcome-banner [user]="user" class="welcome-banner"></app-welcome-banner>
+  
+  <!-- Contenu spécifique au rôle -->
+  <div [ngSwitch]="user.role" class="content-section">
+
+    <!-- === DASHBOARD DE L'ÉLÈVE === -->
+    <div *ngSwitchCase="'STUDENT'">
+      
+      <!-- Section des cours en tendance -->
+      <section class="course-section">
+        <h2 class="section-title">Cours en Tendance</h2>
+        <div class="course-grid" *ngIf="trendingCourses$ | async as courses">
+          <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
+        </div>
+      </section>
+
+      <!-- Section des cours les mieux notés -->
+      <section class="course-section">
+        <h2 class="section-title">Les Mieux Notés</h2>
+        <div class="course-grid" *ngIf="topRatedCourses$ | async as courses">
+          <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
+        </div>
+      </section>
+      
+    </div>
+
+    <!-- === DASHBOARD DE L'INSTRUCTEUR === -->
+    <div *ngSwitchCase="'Instructeur'">
+      <h2 class="section-title">Aperçu de votre activité</h2>
+      <mat-grid-list [cols]="cols$ | async" rowHeight="140px" gutterSize="20px">
+        <mat-grid-tile *ngFor="let stat of instructorStats">
+          <app-stats-card [icon]="stat.icon" [value]="stat.value" [label]="stat.label" 
+                          [color]="stat.color">
+          </app-stats-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+      
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="mt-8">
+        <mat-tab label="Derniers devoirs soumis"> Contenu des devoirs... </mat-tab>
+        <mat-tab label="Activité récente du forum"> Contenu du forum... </mat-tab>
+      </mat-tab-group>
+    </div>
+    
+    <!-- === DASHBOARD DU PARENT (Exemple) === -->
+    <div *ngSwitchCase="'Parent'">
+       <h2 class="section-title">Progression de Alexandre L.</h2>
+      <mat-grid-list [cols]="cols$ | async" rowHeight="160px" gutterSize="20px">
+        <mat-grid-tile *ngFor="let stat of studentStats">
+          <app-stats-card [icon]="stat.icon" [value]="stat.value" [label]="stat.label" 
+                          [color]="stat.color" [progressValue]="stat.progressValue">
+          </app-stats-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+    <!-- Message par défaut pour les autres rôles -->
+    <div *ngSwitchDefault>
+      <mat-card>
+        <mat-card-content>
+          <p>Le tableau de bord pour le rôle "{{ user.role }}" est en cours de construction.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

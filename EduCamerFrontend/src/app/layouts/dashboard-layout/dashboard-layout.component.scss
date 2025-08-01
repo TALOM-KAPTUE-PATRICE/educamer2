@@ -1,0 +1,22 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 250px;
+}
+
+// Le wrapper du contenu principal
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%; // Prend toute la hauteur de son parent (sidenav-container)
+}
+
+// L'espace où le contenu est affiché
+.main-content {
+  flex-grow: 1; // Prend tout l'espace vertical restant
+  overflow-y: auto; // Ajoute une barre de défilement si le contenu est trop long
+  padding: 1.5rem; // p-6
+  background-color: #f7fafc; // bg-gray-100
+}

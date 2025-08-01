@@ -1,0 +1,44 @@
+<div class="chatbot-container">
+  <!-- Fenêtre de chat (animée) -->
+  <div class="chat-window" [@slideInOut]="chatState">
+    <header class="chat-header">
+      <div class="header-content">
+        <mat-icon>support_agent</mat-icon>
+        <div class="header-text">
+          <h3>EduBot</h3>
+          <span>Tuteur IA en ligne</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="chat-body" #chatBody>
+      <div *ngFor="let message of messages" class="message-row" [ngClass]="{'user-row': message.isUser, 'bot-row': !message.isUser}">
+        <div class="bubble">
+          <!-- Utiliser le pipe safeHtml si les réponses de Gemini peuvent contenir du formatage -->
+          <p [innerHTML]="message.text | safeHtml"></p>
+        </div>
+      </div>
+      
+      <!-- Indicateur de frappe -->
+      <div *ngIf="isLoading" class="message-row bot-row">
+        <div class="bubble typing-indicator">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="chat-footer">
+      <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+        <input formControlName="question" placeholder="Posez votre question ici..." autocomplete="off">
+        <button mat-icon-button type="submit" color="primary" [disabled]="chatForm.invalid || isLoading" matTooltip="Envoyer">
+          <mat-icon>send</mat-icon>
+        </button>
+      </form>
+    </footer>
+  </div>
+
+  <!-- Bouton flottant pour ouvrir/fermer -->
+  <button mat-fab color="primary" class="chat-fab" (click)="toggleChat()" matTooltip="Contacter EduBot">
+    <mat-icon>{{ chatState === 'closed' ? 'support_agent' : 'close' }}</mat-icon>
+  </button>
+</div>

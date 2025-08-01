@@ -1,0 +1,33 @@
+<div class="resource-list-container">
+  <h4>Ressources</h4>
+  <div *ngIf="resources && resources.length > 0; else noResources">
+    <mat-list>
+      <mat-list-item *ngFor="let resource of resources">
+        <mat-icon matListItemIcon [ngSwitch]="resource.type">
+          <ng-container *ngSwitchCase="'VIDEO'">smart_display</ng-container>
+          <ng-container *ngSwitchCase="'PDF'">picture_as_pdf</ng-container>
+          <ng-container *ngSwitchCase="'LINK'">link</ng-container>
+          <ng-container *ngSwitchDefault>attachment</ng-container>
+        </mat-icon>
+        <div matListItemTitle>{{ resource.name }}</div>
+        <div matListItemLine>{{ resource.type }}</div>
+        <div matListItemMeta>
+          <a mat-icon-button [href]="resource.url" (click)="handleResourceClick(resource, $event)"
+            [target]="resource.type === 'LINK' ? '_blank' : '_self'" matTooltip="Ouvrir / Télécharger la ressource">
+            <mat-icon>{{ resource.type === 'LINK' ? 'open_in_new' : 'download' }}</mat-icon>
+          </a>
+          <button (click)="deleteResource(resource.id)" *ngIf="isEditable" mat-icon-button
+            color="warn"><mat-icon>delete</mat-icon></button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <ng-template #noResources>
+    <p class="empty-text">Aucune ressource pour cette leçon.</p>
+  </ng-template>
+
+  <button *ngIf="isEditable" mat-stroked-button color="primary" class="add-button" (click)="addResource()">
+    <mat-icon>add_circle_outline</mat-icon>
+    Ajouter une ressource
+  </button>
+</div>

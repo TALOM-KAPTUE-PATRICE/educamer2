@@ -1,0 +1,58 @@
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 12px; // Espace pour le bouton de fermeture
+}
+
+.review-section {
+  margin: 24px 0;
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+  .label {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 4px;
+  }
+  .value {
+    font-size: 1rem;
+    font-weight: 500;
+    &.role {
+      color: var(--mat-primary-500, #3f51b5);
+    }
+    &.file-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+  .motivation-text {
+    white-space: pre-wrap; // Préserve les sauts de ligne
+    line-height: 1.6;
+  }
+}
+
+.button-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

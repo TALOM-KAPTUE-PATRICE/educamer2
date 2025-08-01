@@ -1,0 +1,70 @@
+<div class="lesson-list-container">
+  <div class="list-actions">
+    <p>Organisez les leçons de votre cours. Ajoutez du contenu à chaque leçon.</p>
+    <button mat-flat-button color="primary" (click)="addLesson()">
+      <mat-icon>add</mat-icon> Ajouter une leçon
+    </button>
+  </div>
+
+  <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
+    <mat-expansion-panel *ngFor="let lesson of lessons" cdkDrag>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+          Leçon {{ lesson.lessonOrder }}: {{ lesson.title }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <!-- On retire l'opérateur ?. car 'lesson.resources' est toujours défini -->
+          {{ (lesson.resources && lesson.resources.length) || 0 }} Ressource(s) - {{ lesson.quiz ? 'Quiz inclus' : 'Pas de quiz' }}
+        </mat-panel-description>
+          <button mat-icon-button color="warn" (click)="deleteLesson($event, lesson)" matTooltip="Supprimer la leçon">
+    <mat-icon>delete</mat-icon>
+  </button>
+      </mat-expansion-panel-header>
+
+      <div class="lesson-content">
+        <h4>Contenu Principal</h4>
+        <p class="lesson-text-content">{{ lesson.content }}</p>
+        <mat-divider></mat-divider>
+        <!-- Le composant ressource propage l'événement de mise à jour -->
+        <app-resource-list [resources]="lesson.resources || []" [lessonId]="lesson.id" [isEditable]="true"
+          (lessonUpdated)="onChildContentUpdated($event, lesson.id)">
+        </app-resource-list>
+
+               <!-- ▼▼▼ CORRECTION 2 : Sécurisation de la condition du mat-divider ▼▼▼ -->
+        <mat-divider *ngIf="lesson.resources && lesson.resources.length > 0 && lesson.quiz"></mat-divider>
+        <!-- Section d'affichage du Quiz -->
+        <!-- <div *ngIf="lesson.quiz" class="quiz-display-container">
+          <h4>
+            <mat-icon>quiz</mat-icon>
+            Quiz : {{ lesson.quiz.title }}
+          </h4>
+          <div *ngIf="!lesson.quiz.questions || lesson.quiz.questions.length === 0" class="empty-text">
+            Ce quiz ne contient pas encore de questions.
+          </div>
+
+          <mat-list *ngIf="lesson.quiz.questions.length > 0 && lesson.quiz.questions.length > 0">
+            <div mat-subheader>Questions</div>
+            <mat-list-item *ngFor="let question of lesson.quiz.questions; let i = index" class="question-item">
+              <div matListItemTitle class="question-text">{{ i + 1 }}. {{ question.text }}</div>
+              <div matListItemLine class="answer-list">
+                <div *ngFor="let answer of question.answers" class="answer-item"
+                  [ngClass]="{ 'correct-answer': answer.isCorrect }">
+                  <mat-icon>{{ answer.isCorrect ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+                  <span>{{ answer.text }}</span>
+                </div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </div> -->
+
+        <div class="lesson-actions">
+          <button mat-stroked-button color="accent" (click)="manageQuiz(lesson)">
+            <mat-icon>edit_note</mat-icon>
+            {{ lesson.quiz ? 'Modifier le Quiz' : 'Ajouter un Quiz' }}
+          </button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

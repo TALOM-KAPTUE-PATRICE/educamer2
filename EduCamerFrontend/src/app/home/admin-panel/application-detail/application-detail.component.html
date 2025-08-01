@@ -1,0 +1,55 @@
+
+<div class="detail-container">
+    <button mat-stroked-button routerLink="/home/admin-panel" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+        Retour à la liste
+    </button>
+
+    <!-- Affiche un spinner pendant le chargement des données -->
+    <div *ngIf="isLoading" class="loading-spinner">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Chargement de la candidature...</p>
+    </div>
+
+    <!-- Affiche la carte une fois les données chargées -->
+    <mat-card *ngIf="!isLoading && application as app">
+        <mat-card-header>
+            <mat-card-title>{{ app.name }}</mat-card-title>
+            <mat-card-subtitle>{{ app.email }} - {{ app.phone }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <h3>Spécialisations</h3>
+            <p>{{ app.specializations }}</p>
+
+            <h3>Motivation</h3>
+            <p class="motivation-text">{{ app.motivation }}</p>
+
+            <h3>Curriculum Vitae</h3>
+      <!-- ▼▼▼ LE LIEN A ÉTÉ MODIFIÉ ▼▼▼ -->
+      <a *ngIf="app.encodedResumePublicId" 
+         [href]="'/api/files/resume/' + app.encodedResumePublicId" 
+         target="_blank" 
+         mat-button 
+         color="primary">
+        <mat-icon>description</mat-icon>
+        Télécharger / Voir le CV
+      </a>
+      <span *ngIf="!app.encodedResumePublicId">Aucun CV fourni.</span>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-stroked-button color="warn" (click)="openRejectDialog()" [disabled]="isProcessingAction">
+                Rejeter
+            </button>
+            <button mat-raised-button color="primary" (click)="approve()" [disabled]="isProcessingAction">
+                <span *ngIf="!isProcessingAction">Approuver la Candidature</span>
+                <span *ngIf="isProcessingAction">Traitement...</span>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- Message d'erreur si la candidature n'a pas été trouvée -->
+    <div *ngIf="!isLoading && !application" class="empty-state">
+        <mat-icon>error_outline</mat-icon>
+        <p>Impossible de charger les détails de cette candidature.</p>
+    </div>
+</div>

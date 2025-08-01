@@ -1,0 +1,29 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #drawer class="sidenav" 
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
+    <!-- app-sidebar va hériter de la hauteur de mat-sidenav -->
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <!-- Contenu Principal -->
+  <!-- J'ai nettoyé les classes. Nous allons les recréer en SCSS pour plus de clarté. -->
+  <mat-sidenav-content class="main-content-wrapper">
+    
+    <app-header (toggleSidebar)="toggleSidebar()"></app-header> <!-- L'event (toggleSidebar) a été retiré, on le remet dans le TS -->
+    
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <app-footer></app-footer>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<!-- ▼▼▼ AJOUTER LE CHATBOT ICI, EN DEHORS DU CONTENU PRINCIPAL ▼▼▼ -->
+<!-- Il ne s'affichera que pour les élèves -->
+<app-chatbot *ngIf="(authService.currentUser$ | async)?.role === 'STUDENT'"></app-chatbot>

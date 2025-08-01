@@ -1,0 +1,25 @@
+<div class="tracking-container" *ngIf="course$ | async as course">
+  <div class="tracking-header">
+    <a routerLink="/home/course-management" mat-icon-button>
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div class="header-text">
+      <h1>Suivi du cours : {{ course.title }}</h1>
+      <p>Analysez la progression et les résultats de vos élèves.</p>
+    </div>
+  </div>
+  
+  <!-- Onglets pour la Progression et les Notes -->
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Progression Générale">
+      <ng-template matTabContent>
+        <app-progress-tab [courseId]="course.id"></app-progress-tab>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Carnet de Notes">
+      <ng-template matTabContent>
+        <app-gradebook-tab [courseId]="course.id"></app-gradebook-tab>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

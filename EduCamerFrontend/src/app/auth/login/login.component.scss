@@ -1,0 +1,272 @@
+/* --- Configuration Globale du Composant --- */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 110vh;
+  width: 98vw;
+  background-color: #1f2021; // Un fond très clair et neutre
+  font-family: 'Roboto', sans-serif;
+}
+
+#spinner {
+  display: flex;
+}
+
+/* --- Conteneur Principal --- */
+.login-container {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  min-height: 600px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden; // Très important pour les bords arrondis
+}
+
+/* --- Panneau de l'Illustration (Gauche) --- */
+.illustration-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eef2ff; // Une couleur de fond douce pour l'illustration
+  padding: 2rem;
+
+  img {
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+/* --- Panneau du Formulaire (Droite) --- */
+.form-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative; // Contexte pour le positionnement absolu
+}
+
+/* --- Style du Bouton de Retour --- */
+.back-button {
+  position: absolute;
+  top: 24px; // Ajustez selon le padding du form-panel
+  right: 24px; // Ajustez selon le padding du form-panel
+  color: #9e9e9e; // Une couleur discrète
+
+  &:hover {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  // On enlève l'ombre de la carte car le conteneur principal en a déjà une
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* --- Logo --- */
+.logo-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  .app-logo {
+    height: 40px; // Ajustez la taille de votre logo
+    width: auto;
+  }
+
+  .app-logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3f51b5; // Couleur primaire de votre thème
+  }
+}
+
+/* --- En-tête du formulaire --- */
+.login-header {
+  text-align: center;
+  padding: 0;
+  margin-bottom: 2rem;
+
+  .mat-mdc-card-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  .mat-mdc-card-subtitle {
+    color: #666;
+  }
+}
+
+/* --- Style des Éléments de Formulaire --- */
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 1rem;
+}
+
+// Pour mettre les icônes dans les champs en couleur primaire
+.mat-icon[matPrefix] {
+  margin-right: 8px;
+}
+
+.form-actions {
+  text-align: right;
+  margin: -0.5rem 0 1rem 0;
+}
+
+.forgot-password-link {
+  font-size: 0.85rem;
+  text-decoration: none;
+  font-weight: 500;
+  color: #3f51b5;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Classe pour le bouton de connexion
+.submit-button {
+  width: 100%; // Prend toute la largeur
+  padding: 14px 0 !important; // Hauteur uniforme (important pour forcer le style de Material)
+  font-size: 1rem;
+  font-weight: 500;
+  height: 48px;
+  position: relative; // Contexte de positionnement pour le spinner
+  overflow: hidden; // Cache les éléments qui dépassent
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #3f51b5;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 1.5rem; // Espace après le bouton
+
+  // Style pour le texte et le spinner
+  .button-text,
+  .button-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+
+  // Le texte est visible par défaut
+  .button-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // Le spinner est positionné au-dessus et caché par défaut
+  .button-spinner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transform: translateY(-20px); // Commence un peu au-dessus
+
+    // Style du spinner lui-même
+    mat-spinner::ng-deep .mdc-circular-progress__determinate-circle,
+    mat-spinner::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
+      stroke: white !important; // Pour que le spinner soit blanc sur le fond du bouton
+    }
+  }
+
+  // Quand isLoading est true, la classe 'hidden' est ajoutée au texte
+  .button-text.hidden {
+    opacity: 0;
+    transform: translateY(20px); // Le texte sort par le bas
+  }
+
+  // Quand isLoading est true, la classe 'visible' est ajoutée au spinner
+  .button-spinner.visible {
+    opacity: 1;
+    transform: translateY(0); // Le spinner entre par le haut
+  }
+}
+
+
+
+/* --- Séparateur "ou" --- */
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #aaa;
+  margin: 1.5rem 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+
+  span {
+    padding: 0 1rem;
+  }
+}
+
+// Cible le bouton "Créer un nouveau compte"
+a[mat-stroked-button] {
+  width: 100%; // Prend toute la largeur
+  padding: 14px 0 !important; // MÊME hauteur que le bouton de connexion
+  border-radius: 8px;
+  // La couleur de la bordure et du texte sera gérée par le thème, pas besoin de la forcer ici.
+}
+
+// ===================================
+// RESPONSIVE DESIGN
+// ===================================
+@media (max-width: 960px) {
+  .login-container {
+    flex-direction: column;
+    max-width: 500px;
+    min-height: auto;
+    margin: 2rem;
+  }
+
+  // On cache l'illustration sur les tablettes et mobiles
+  .illustration-panel {
+    display: none;
+  }
+
+  .form-panel {
+    padding: 2rem 1.5rem;
+  }
+
+  .back-button {
+    top: 16px;
+    right: 16px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  // Sur les très petits écrans, on retire le conteneur pour que ça prenne toute la place
+  :host {
+    background-color: #ffffff; // Le fond devient blanc
+  }
+
+  .login-container {
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .form-panel {
+    padding: 1.5rem 1rem;
+  }
+}

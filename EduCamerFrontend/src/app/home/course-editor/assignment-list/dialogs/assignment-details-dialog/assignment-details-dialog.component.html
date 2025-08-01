@@ -1,0 +1,41 @@
+<div class="header">
+    <h1 mat-dialog-title>{{ data.assignment.title }}</h1>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+    <div class="detail-section">
+        <div class="detail-item">
+            <mat-icon>event</mat-icon>
+            <div class="detail-text">
+                <span class="label">Date limite</span>
+                <span class="value">{{ data.assignment.dueDate ? (data.assignment.dueDate | date:'fullDate') : 'Aucune date limite' }}</span>
+            </div>
+        </div>
+        <div class="detail-item" *ngIf="data.assignment.attachmentUrl">
+            <mat-icon>attachment</mat-icon>
+            <div class="detail-text">
+                <span class="label">Pièce jointe</span>
+                <a mat-button color="primary" (click)="download(data.assignment)">
+                    <mat-icon>download</mat-icon>
+                    Télécharger
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h3>Description / Consignes</h3>
+    <p class="description">{{ data.assignment.description }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Fermer</button>
+    <button mat-flat-button color="primary" (click)="onEdit()">
+        <mat-icon>edit</mat-icon>
+        Modifier
+    </button>
+</mat-dialog-actions>

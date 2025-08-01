@@ -1,0 +1,62 @@
+<mat-toolbar class="app-header mat-elevation-z2">
+  
+  <div class="header-left">
+    <button mat-icon-button (click)="onToggleSidebar()" aria-label="Toggle sidebar" class="menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="app-title">EduCamer</span>
+  </div>
+
+  <!-- La section droite est maintenant plus épurée -->
+  <div class="header-right" *ngIf="currentUser$ | async as user">
+
+    <!-- Boutons d'action -->
+    <div class="action-buttons">
+      <button mat-icon-button aria-label="Notifications" matBadge="3" matBadgeColor="warn" matBadgeSize="small">
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Applications">
+        <mat-icon>apps</mat-icon>
+      </button>
+    </div>
+
+    <!-- Séparateur visuel -->
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <!-- ▼▼▼ BLOC PROFIL AMÉLIORÉ AVEC UN MENU DÉROULANT ▼▼▼ -->
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-profile-button">
+      <div class="user-profile">
+        <img [src]="user.avatarUrl || 'assets/welcome/profile.svg'" alt="Avatar" class="user-avatar">
+        <div class="user-info">
+          <span class="user-name">{{ user.name }}</span>
+          <span class="user-role">{{ user.role }}</span>
+        </div>
+        <mat-icon class="profile-arrow">expand_more</mat-icon>
+      </div>
+    </button>
+    
+    <!-- Définition du menu qui sera déclenché -->
+    <mat-menu class="user-menu" #userMenu="matMenu" xPosition="before">
+      <div class="menu-header">
+        <p>Connecté en tant que</p>
+        <strong>{{ user.name }}</strong>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/home/profile">
+        <mat-icon>person</mat-icon>
+        <span>Mon Profil</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>help_outline</mat-icon>
+        <span>Aide</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="authService.logout()" class="logout-item">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Déconnexion</span>
+      </button>
+    </mat-menu>
+    <!-- ▲▲▲ FIN DU BLOC PROFIL AMÉLIORÉ ▲▲▲ -->
+    
+  </div>
+</mat-toolbar>

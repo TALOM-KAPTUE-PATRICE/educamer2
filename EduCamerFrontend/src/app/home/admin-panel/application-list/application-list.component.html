@@ -1,0 +1,43 @@
+<div class="list-container">
+  <h2>Candidatures en attente</h2>
+  
+  <!-- Barre de progression qui s'affiche pendant le chargement -->
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+  <!-- Conteneur qui cache le tableau pendant le chargement -->
+  <div class="table-container" [hidden]="isLoading">
+    
+    <table mat-table [dataSource]="applications" class="mat-elevation-z8">
+      <!-- ... (Les définitions de colonnes <ng-container> ne changent pas) ... -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nom </th>
+        <td mat-cell *matCellDef="let app"> {{app.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let app"> {{app.email}} </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Date de soumission </th>
+        <td mat-cell *matCellDef="let app"> {{app.createdAt | date:'dd/MM/yyyy HH:mm'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let app">
+          <button mat-icon-button color="primary" (click)="viewDetails(app.id)" matTooltip="Voir les détails">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- Message si aucune candidature (affiché seulement si le chargement est terminé) -->
+    <div *ngIf="!isLoading && applications.length === 0" class="empty-state">
+      <mat-icon>inbox</mat-icon>
+      <p>Aucune candidature en attente pour le moment.</p>
+    </div>
+  </div>
+</div>

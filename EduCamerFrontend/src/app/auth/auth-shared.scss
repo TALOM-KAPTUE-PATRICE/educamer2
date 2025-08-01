@@ -1,0 +1,147 @@
+// Variables
+:host {
+  --auth-bg-color: #f8fafc;
+  --illustration-bg-color: #eef2ff;
+  --card-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--auth-bg-color);
+  padding: 1rem;
+}
+
+.auth-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 900px;
+  width: 100%;
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.illustration-panel {
+  background-color: var(--illustration-bg-color);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+
+
+
+
+.form-panel {
+  padding: 2.5rem; // Augmenter le padding pour plus d'aération
+  display: flex;
+  flex-direction: column; // Aligner les éléments verticalement
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px; // Limiter la largeur du formulaire sur grand écran
+  margin: 0 auto; // Centrer la carte dans le panel
+  box-shadow: none !important;
+  background: none !important; // Rendre la carte transparente
+}
+
+// --- NOUVEAU: Style du logo ---
+.logo-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  .app-logo-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3f51b5; // Couleur primaire
+  }
+}
+
+// --- NOUVEAU: Style du header de la carte ---
+.auth-card-header {
+  text-align: center;
+  padding: 0 !important; // Retirer le padding de base de mat-card-header
+  margin-bottom: 2rem;
+  .mat-mdc-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .mat-mdc-card-subtitle {
+    color: #64748b;
+    white-space: normal; // Permettre au sous-titre de passer à la ligne
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+// --- NOUVEAU: Style pour les boutons de soumission ---
+.submit-button {
+  width: 100%;
+  height: 48px; // Hauteur plus confortable
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .spinner-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+
+.form-panel {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 100%;
+  box-shadow: none !important; // Retirer l'ombre de la carte
+}
+
+.full-width {
+  width: 100%;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  text-decoration: none;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+  }
+  .illustration-panel {
+    display: none; // Cacher l'illustration sur mobile
+  }
+}
+
+// Animation
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

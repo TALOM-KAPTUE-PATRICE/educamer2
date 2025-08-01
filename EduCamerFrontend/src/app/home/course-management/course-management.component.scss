@@ -1,0 +1,87 @@
+// Variables pour le style
+:host {
+  --card-hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.04);
+  --card-bg: #ffffff;
+  --image-height: 180px;
+}
+
+.management-container {
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+}
+
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  padding-top: 24px;
+}
+
+.course-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover-shadow);
+  }
+
+  // L'image de couverture
+  .mat-mdc-card-image {
+    height: var(--image-height);
+    object-fit: cover; // Assure que l'image remplit l'espace sans se déformer
+  }
+
+  // Le header de la carte (titre + statut)
+  .mat-mdc-card-header {
+    padding: 16px 16px 8px 16px;
+    position: relative;
+  }
+  
+  .mat-mdc-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  
+  // Le statut (badge custom)
+  .mat-mdc-card-subtitle {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-block;
+    color: white;
+
+    &.status-draft {
+      background-color: #64748b; // Gris
+    }
+    &.status-published {
+      background-color: #16a34a; // Vert
+    }
+  }
+
+  // Les actions en bas
+  .mat-mdc-card-actions {
+    margin-top: auto; // Pousse les actions en bas de la carte
+    padding: 8px 16px 16px 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

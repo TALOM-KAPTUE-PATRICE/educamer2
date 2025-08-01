@@ -1,0 +1,13 @@
+<div class="banner-container" *ngIf="user">
+  <div class="text-content">
+    <h1 class="welcome-title">Bienvenue, {{ user.name }} !</h1>
+    <p class="welcome-subtitle">{{ getWelcomeMessage(user.role) }}</p>
+    <button mat-flat-button color="primary" class="welcome-action">
+      <mat-icon>{{ getActionIcon(user.role) }}</mat-icon>
+      <span>{{ getActionText(user.role) }}</span>
+    </button>
+  </div>
+  <div class="image-content">
+    <img src="assets/welcome/graduation-succes.svg" alt="Illustration de bienvenue">
+  </div>
+</div>

@@ -1,0 +1,199 @@
+<div class="landing-page">
+  <!-- =================================== -->
+  <!-- 1. HEADER DE NAVIGATION           -->
+  <!-- =================================== -->
+  <mat-toolbar class="landing-toolbar">
+    <span class="logo">EduCamer</span>
+    <span class="toolbar-spacer"></span>
+    <div class="desktop-menu">
+      <a mat-button href="#features">Fonctionnalités</a>
+      <a mat-button href="#testimonials">Témoignages</a>
+      <a mat-button href="#faq">FAQ</a>
+      <a mat-button routerLink="/auth">Connexion</a>
+      <a mat-raised-button color="primary" routerLink="/become-instructor">Devenir Enseignant</a>
+    </div>
+    <button mat-icon-button class="mobile-menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- =================================== -->
+  <!-- 2. SECTION HÉROS                  -->
+  <!-- =================================== -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1>Votre Avenir Commence Ici. L'Excellence Scolaire à Portée de Clic.</h1>
+      <p>EduCamer est la plateforme d'accompagnement scolaire conçue pour les élèves du Cameroun. Progressez à votre
+        rythme avec des cours interactifs, des tuteurs dédiés et un suivi parental innovant.</p>
+      <div class="hero-buttons">
+        <a mat-raised-button color="accent" class="hero-cta" routerLink="/auth/register">Démarrer Gratuitement</a>
+        <a mat-stroked-button class="hero-secondary-cta" href="#features">Découvrir les Fonctionnalités</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =================================== -->
+  <!-- 3. SECTION PREUVE SOCIALE         -->
+  <!-- =================================== -->
+  <section class="social-proof-section">
+    <div class="social-proof-content">
+      <span>Approuvé par des établissements et des éducateurs de confiance</span>
+      <div class="logos">
+        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 1">
+        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 2">
+        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 3">
+        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 4">
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================== -->
+  <!-- 4. SECTION FONCTIONNALITÉS        -->
+  <!-- =================================== -->
+  <section id="features" class="features-section">
+    <h2>Une Plateforme Tout-en-Un pour la Réussite</h2>
+    <p class="section-subtitle">Conçue pour les élèves, approuvée par les parents, plébiscitée par les enseignants.</p>
+    <div class="features-grid">
+      <mat-card class="feature-card">
+        <mat-icon>auto_stories</mat-icon>
+        <mat-card-title>Apprentissage Guidé</mat-card-title>
+        <mat-card-content>
+          <p>Progressez leçon par leçon avec des quiz de validation pour vous assurer que chaque notion est maîtrisée
+            avant de passer à la suivante.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="feature-card">
+        <mat-icon>insights</mat-icon>
+        <mat-card-title>Suivi Parental Détaillé</mat-card-title>
+        <mat-card-content>
+          <p>Accédez en temps réel aux notes, à la progression et au temps passé par votre enfant sur chaque matière
+            pour un accompagnement efficace.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="feature-card">
+        <mat-icon>school</mat-icon>
+        <mat-card-title>Contenu Pédagogique Riche</mat-card-title>
+        <mat-card-content>
+          <p>Vidéos, PDF, exercices interactifs... Nos instructeurs créent des cours complets et engageants, conformes
+            au programme officiel.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- =================================== -->
+  <!-- 5. SECTION TÉMOIGNAGES            -->
+  <!-- =================================== -->
+  <section id="testimonials" class="testimonials-section">
+    <h2>Ce que notre communauté en dit</h2>
+    <p class="section-subtitle">Élèves, parents et instructeurs partagent leur expérience.</p>
+    <div class="carousel-wrapper">
+      <owl-carousel-o [options]="testimonialOptions">
+        <ng-template carouselSlide *ngFor="let testimonial of testimonials">
+          <div class="testimonial-slide">
+            <mat-card class="testimonial-card">
+              <img class="testimonial-avatar" [src]="testimonial.image" [alt]="'Photo de ' + testimonial.author">
+              <div class="rating-stars">
+                <mat-icon *ngFor="let star of getStars(testimonial.rating)">star</mat-icon>
+              </div>
+              <mat-card-content>
+                <blockquote>"{{ testimonial.quote }}"</blockquote>
+                <cite>{{ testimonial.author }}, <span>{{ testimonial.role }}</span></cite>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+  </section>
+
+  <!-- =================================== -->
+  <!-- 6. SECTION FAQ                    -->
+  <!-- =================================== -->
+  <section id="faq" class="faq-section">
+    <h2>Questions Fréquentes</h2>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>La plateforme est-elle gratuite ?</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>L'inscription et l'accès à une sélection de cours de découverte sont entièrement gratuits. Des abonnements
+          premium sont disponibles pour un accès illimité à tout le catalogue et au tutorat personnalisé.</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
+          programme scolaire officiel du Cameroun.</p>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
+          programme scolaire officiel du Cameroun.</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
+          programme scolaire officiel du Cameroun.</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
+          programme scolaire officiel du Cameroun.</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
+          programme scolaire officiel du Cameroun.</p>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </section>
+
+  <!-- =================================== -->
+  <!-- 7. FOOTER                         -->
+  <!-- =================================== -->
+  <footer class="landing-footer">
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>EduCamer</h3>
+        <p>L'excellence scolaire pour tous.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#features">Fonctionnalités</a></li>
+          <li><a href="#testimonials">Témoignages</a></li>
+          <li><a routerLink="/auth">Connexion</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Conditions d'utilisation</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Suivez-nous</h4>
+        <div class="social-icons">
+          <!-- Remplacez par vos vrais liens sociaux -->
+          <a href="#"><mat-icon>facebook</mat-icon></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 EduCamer. Tous droits réservés.
+    </div>
+  </footer>
+</div>

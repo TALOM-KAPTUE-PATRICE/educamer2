@@ -1,0 +1,38 @@
+<div class="dialog-header">
+  <div class="header-icon-wrapper">
+    <mat-icon>create_new_folder</mat-icon>
+  </div>
+  <div class="header-text">
+    <h1 mat-dialog-title>Créer un nouveau cours</h1>
+    <p mat-dialog-subtitle>Donnez un titre et une description à votre cours pour commencer.</p>
+  </div>
+</div>
+
+<mat-dialog-content>
+  <form [formGroup]="courseForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titre du cours</mat-label>
+      <input matInput formControlName="title" required cdkFocusInitial
+             placeholder="Ex: Introduction à l'Algèbre">
+      <mat-hint align="end">{{ courseForm.get('title')?.value?.length || 0 }} / 150</mat-hint>
+      <mat-error *ngIf="courseForm.get('title')?.hasError('required')">Le titre est requis.</mat-error>
+      <mat-error *ngIf="courseForm.get('title')?.hasError('minlength')">Le titre doit faire au moins 5 caractères.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="5" required
+                placeholder="Décrivez brièvement les objectifs et le contenu de votre cours..."></textarea>
+      <mat-hint align="end">{{ courseForm.get('description')?.value?.length || 0 }} / 2000</mat-hint>
+      <mat-error *ngIf="courseForm.get('description')?.hasError('required')">La description est requise.</mat-error>
+      <mat-error *ngIf="courseForm.get('description')?.hasError('minlength')">La description doit faire au moins 20 caractères.</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="courseForm.value" [disabled]="courseForm.invalid">
+    Créer et continuer
+  </button>
+</mat-dialog-actions>

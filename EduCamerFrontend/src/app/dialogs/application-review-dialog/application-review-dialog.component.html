@@ -1,0 +1,73 @@
+<div class="dialog-header">
+  <h1 mat-dialog-title>Vérifiez votre candidature</h1>
+  <button mat-icon-button (click)="onCancel()" matTooltip="Fermer">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <p>Veuillez vérifier les informations ci-dessous avant de soumettre définitivement votre candidature.</p>
+  
+  <mat-divider></mat-divider>
+
+  <!-- Section Informations Personnelles -->
+  <section class="review-section">
+    <h2>Votre Projet</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">Je postule en tant que</span>
+        <span class="value role">{{ data.personalInfo.desiredRole === 'INSTRUCTOR' ? 'Instructeur' : 'Tuteur' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Nom complet</span>
+        <span class="value">{{ data.personalInfo.name }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Email</span>
+        <span class="value">{{ data.personalInfo.email }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Téléphone</span>
+        <span class="value">{{ data.personalInfo.phone }}</span>
+      </div>
+    </div>
+  </section>
+
+  <mat-divider></mat-divider>
+
+  <!-- Section Expertise -->
+  <section class="review-section">
+    <h2>Votre Expertise</h2>
+    <div class="info-grid">
+      <div class="info-item full-width">
+        <span class="label">Matières de prédilection</span>
+        <span class="value">{{ data.expertiseInfo.specializations }}</span>
+      </div>
+      <div class="info-item full-width">
+        <span class="label">Motivation</span>
+        <p class="value motivation-text">{{ data.expertiseInfo.motivation }}</p>
+      </div>
+      <div class="info-item">
+        <span class="label">CV Joint</span>
+        <span class="value file-name"><mat-icon>attachment</mat-icon> {{ data.fileName || 'Aucun fichier' }}</span>
+      </div>
+    </div>
+  </section>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onCancel()" [disabled]="isSubmitting">Modifier mes informations</button>
+  
+  <!-- ▼▼▼ LE BOUTON EST MAINTENANT DYNAMIQUE ▼▼▼ -->
+  <button mat-flat-button color="primary" (click)="onConfirm()" [disabled]="isSubmitting">
+    <span *ngIf="!isSubmitting" class="button-content">
+      <mat-icon>check_circle</mat-icon>
+      Tout est correct, Soumettre
+    </span>
+    <span *ngIf="isSubmitting" class="button-content">
+      <mat-spinner diameter="20"></mat-spinner>
+      <span>Envoi en cours...</span>
+    </span>
+  </button>
+</mat-dialog-actions>

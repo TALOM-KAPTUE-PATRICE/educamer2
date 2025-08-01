@@ -1,0 +1,60 @@
+<h1 mat-dialog-title>{{ data.quiz ? 'Éditeur de Quiz' : 'Nouveau Quiz' }}</h1>
+<div mat-dialog-content [formGroup]="quizForm">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Titre du Quiz</mat-label>
+    <input matInput formControlName="title" required cdkFocusInitial>
+  </mat-form-field>
+  
+  <mat-divider></mat-divider>
+  <h3>Questions</h3>
+
+  <div formArrayName="questions">
+    <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i" class="question-block">
+      <div class="question-header">
+        <h4>Question {{ i + 1 }}</h4>
+        <button mat-icon-button color="warn" (click)="removeQuestion(i)" matTooltip="Supprimer la question">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Texte de la question</mat-label>
+        <textarea matInput formControlName="text" rows="2" required></textarea>
+      </mat-form-field>
+      
+      <h5>Réponses <small>(cochez la bonne)</small></h5>
+      <div formArrayName="answers">
+        <div *ngFor="let answer of answers(i).controls; let j=index" [formGroupName]="j" class="answer-row">
+          
+          <!-- Utilisation de MatRadioGroup pour garantir une seule sélection -->
+          <mat-radio-button [checked]="answer.get('isCorrect')?.value" 
+                            (change)="handleCorrectAnswerChange(i, j)"
+                            matTooltip="Marquer comme bonne réponse">
+          </mat-radio-button>
+
+          <mat-form-field appearance="outline" class="answer-input">
+            <input matInput formControlName="text" placeholder="Réponse {{ j + 1 }}" required>
+          </mat-form-field>
+          
+          <button mat-icon-button (click)="removeAnswer(i, j)" matTooltip="Supprimer la réponse" [disabled]="answers(i).length <= 2">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button mat-stroked-button (click)="addAnswer(i)" class="add-answer-btn">
+        <mat-icon>add</mat-icon> Ajouter une réponse
+      </button>
+    </div>
+  </div>
+  
+  <button mat-flat-button color="primary" (click)="addQuestion()">
+    <mat-icon>add_circle_outline</mat-icon> Ajouter une Question
+  </button>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="quizForm.value" [disabled]="quizForm.invalid">
+    Sauvegarder le Quiz
+  </button>
+</div>

@@ -1,0 +1,49 @@
+.dialog-header {
+  padding: 24px 24px 0 24px;
+  h1 { margin: 0; }
+  p { color: #64748b; }
+}
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin: 24px 0 8px 0;
+  color: #334155;
+}
+.mat-button-toggle-group {
+  border: none;
+  gap: 8px;
+  .mat-button-toggle {
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0;
+    &.mat-button-toggle-checked {
+      background-color: #e0f2fe;
+      border-color: #0ea5e9;
+      color: #0ea5e9;
+    }
+  }
+}
+.details-section { margin-top: 16px; }
+.file-drop-zone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  &.drag-over {
+    background-color: #f0f9ff;
+    border-color: #0ea5e9;
+  }
+  .prompt {
+    color: #64748b;
+    mat-icon { font-size: 48px; width: 48px; height: 48px; }
+  }
+  .file-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #16a34a;
+    font-weight: 500;
+  }
+}

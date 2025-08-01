@@ -1,0 +1,54 @@
+<div class="editor-container" *ngIf="courseData; else loading">
+  <div class="editor-header">
+    <a routerLink="/home/course-management" mat-icon-button aria-label="Retour à la liste des cours">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div class="header-text">
+      <h1>Éditeur : {{ courseData.title }}</h1>
+      <!-- On utilise la même classe que sur la liste pour un style cohérent -->
+      <span class="status-badge" [ngClass]="'status-' + courseData.status.toLowerCase()">
+        {{ courseData.status === 'DRAFT' ? 'Brouillon' : 'Publié' }}
+      </span>
+    </div>
+    <span class="spacer"></span>
+
+        <!-- ▼▼▼ BOUTON AJOUTÉ ▼▼▼ -->
+    <button mat-button [routerLink]="['/home/course', courseData.id, 'forum']">
+        <mat-icon>forum</mat-icon>
+        Voir le Forum
+    </button>
+    <!-- Ajout d'un Tooltip pour expliquer pourquoi le bouton est désactivé -->
+    <button mat-stroked-button color="primary" (click)="publishCourse()"
+      [disabled]="courseData.status === 'PUBLISHED' || isPublishing || !courseData.lessons || courseData.lessons.length === 0"
+      [matTooltip]="(!courseData.lessons || courseData.lessons.length === 0 && courseData.status !== 'PUBLISHED') ? 'Ajoutez au moins une leçon pour pouvoir publier' : ''">
+      <mat-icon>publish</mat-icon>
+      {{ courseData.status === 'PUBLISHED' ? 'Déjà Publié' : (isPublishing ? 'Publication...' : 'Publier le cours') }}
+    </button>
+  </div>
+
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Leçons & Contenu">
+      <app-lesson-list 
+      [lessons]="courseData.lessons" 
+      [courseId]="courseData.id" 
+    
+      (contentUpdated)="onContentUpdated()"       
+      >
+    </app-lesson-list>
+    </mat-tab>
+    <mat-tab label="Devoirs">
+      <app-assignment-list [assignments]="courseData.assignments" [courseId]="courseData.id" (contentUpdated)="onContentUpdated()"  [isEditable]="true" ></app-assignment-list>
+    </mat-tab>
+    <mat-tab label="Paramètres">
+     
+      <app-settings-tab [course]="courseData" (courseUpdated)="onContentUpdated()"></app-settings-tab>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<ng-template #loading>
+  <div class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Chargement de l'éditeur de cours...</p>
+  </div>
+</ng-template>

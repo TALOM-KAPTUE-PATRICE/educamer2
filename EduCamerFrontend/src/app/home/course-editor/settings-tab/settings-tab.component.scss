@@ -1,0 +1,72 @@
+.settings-container {
+  display: flex;
+  gap: 32px;
+}
+
+.form-section, .cover-section {
+  flex: 1;
+  p { color: #64748b; }
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cover-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* Ratio 16:9 */
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #f1f5f9;
+
+  .current-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+
+  .upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    mat-icon { font-size: 48px; }
+  }
+
+  &:hover .upload-overlay {
+    opacity: 1;
+  }
+  &:hover .current-cover {
+    transform: scale(1.05);
+  }
+}
+
+.upload-spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

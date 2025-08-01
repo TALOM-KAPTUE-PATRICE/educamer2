@@ -1,0 +1,115 @@
+<div class="profile-page-container">
+  <h1 class="page-title">Paramètres du Compte</h1>
+
+  <!-- CARTE 1: Informations du Profil -->
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>account_circle</mat-icon>
+      <mat-card-title>Informations Personnelles</mat-card-title>
+      <mat-card-subtitle>Gérez votre nom et votre photo de profil.</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="profile-content-wrapper">
+        <!-- Section Formulaire -->
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmitInfo()" class="profile-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom complet</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Adresse Email</mat-label>
+            <input matInput formControlName="email" readonly>
+            <mat-icon matSuffix matTooltip="L'adresse email ne peut pas être modifiée.">lock</mat-icon>
+          </mat-form-field>
+          
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || !profileForm.dirty || isSavingInfo">
+              <span *ngIf="!isSavingInfo">Enregistrer les changements</span>
+              <span *ngIf="isSavingInfo">Sauvegarde...</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Section Avatar -->
+        <div class="avatar-section">
+          <label class="mat-label">Photo de profil</label>
+          <div class="avatar-preview-container">
+            <img [src]="avatarPreviewUrl || 'assets/welcome/profile.svg'" alt="Avatar" class="profile-avatar">
+            <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+            <button mat-mini-fab color="primary" (click)="fileInput.click()" class="edit-avatar-btn" matTooltip="Changer l'avatar">
+              <mat-icon>photo_camera</mat-icon>
+            </button>
+          </div>
+          
+          <div *ngIf="selectedFile" class="avatar-actions">
+            <button mat-button (click)="cancelAvatarChange()">Annuler</button>
+            <button mat-flat-button color="primary" (click)="uploadAvatar()" [disabled]="isUploadingAvatar">
+              <span *ngIf="!isUploadingAvatar">Enregistrer l'image</span>
+              <span *ngIf="isUploadingAvatar">Envoi...</span>
+            </button>
+          </div>
+          <p *ngIf="!selectedFile" class="avatar-hint">Cliquez sur l'appareil photo pour changer votre image (max 2MB).</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+    <!-- NOUVEAU: Carte pour la liaison parentale, visible uniquement pour les élèves -->
+  <mat-card *ngIf="(authService.currentUser$ | async)?.role === 'STUDENT'"  class="parent-linking-card">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="linking-icon">family_restroom</mat-icon>
+      <mat-card-title>Liaison Parentale</mat-card-title>
+      <mat-card-subtitle>Partagez votre progression avec vos parents.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Pour permettre à un parent de suivre votre parcours, générez un code unique et partagez-le avec lui.</p>
+      
+      <!-- Affichage du code généré -->
+      <div *ngIf="linkingCode" class="code-display-container">
+        <div class="code-box">{{ linkingCode }}</div>
+        <div class="expiry-message">{{ expiryMessage }}</div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" (click)="generateCode()" [disabled]="isGenerating">
+        <mat-icon>vpn_key</mat-icon>
+        <span *ngIf="!isGenerating">Générer un nouveau code</span>
+        <span *ngIf="isGenerating">Génération...</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- CARTE 2: Sécurité du Compte -->
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>security</mat-icon>
+      <mat-card-title>Sécurité</mat-card-title>
+      <mat-card-subtitle>Changez votre mot de passe.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="action-list">
+      <button mat-stroked-button>
+        <mat-icon>password</mat-icon>
+        Changer le mot de passe
+      </button>
+    </mat-card-content>
+  </mat-card>
+  
+  <!-- CARTE 3: Zone de Danger -->
+  <mat-card class="profile-card danger-zone">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>warning</mat-icon>
+      <mat-card-title>Zone de Danger</mat-card-title>
+      <mat-card-subtitle>Ces actions sont irréversibles.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="action-list">
+      <button mat-stroked-button color="warn">
+        <mat-icon>delete_forever</mat-icon>
+        Supprimer mon compte
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+

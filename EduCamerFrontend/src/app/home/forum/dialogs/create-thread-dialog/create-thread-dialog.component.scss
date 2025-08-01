@@ -1,0 +1,39 @@
+// Cible le conteneur global du dialogue pour un padding cohérent
+:host {
+  display: block;
+}
+
+// Style pour le titre du dialogue
+h1[mat-dialog-title] {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b; // Un gris-bleu foncé
+  border-bottom: 1px solid #e2e8f0; // Une ligne de séparation subtile
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+// Style pour le contenu principal du dialogue
+div[mat-dialog-content] {
+  // Enlève le padding par défaut pour un meilleur contrôle
+  padding: 0 24px 24px 24px; 
+  
+  p {
+    font-size: 1rem;
+    color: #64748b; // Un gris plus clair pour le texte d'instruction
+    margin-bottom: 24px;
+  }
+}
+
+// Classe pour s'assurer que les champs de formulaire prennent toute la largeur
+.full-width {
+  width: 100%;
+}
+
+// Style pour les actions (boutons) en bas du dialogue
+div[mat-dialog-actions] {
+  padding: 8px 24px;
+  border-top: 1px solid #e2e8f0;
+  background-color: #f8fafc; // Un fond très légèrement grisé
+  margin: 0 -24px -24px -24px; // Pour que le fond aille jusqu'aux bords
+}

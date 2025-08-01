@@ -1,0 +1,18 @@
+<div class="tab-content-container">
+  <div *ngIf="progressData$ | async as progressList; else loading">
+    <div *ngIf="progressList.length > 0; else noStudents">
+      <mat-list>
+        <mat-list-item *ngFor="let student of progressList">
+          <img matListItemAvatar [src]="student.studentAvatarUrl || 'assets/welcome/profile.svg'" alt="Avatar">
+          <div matListItemTitle>{{ student.studentName }}</div>
+          <div matListItemLine>
+            <mat-progress-bar mode="determinate" [value]="student.courseProgress"></mat-progress-bar>
+          </div>
+          <div matListItemMeta class="progress-text">{{ student.courseProgress | number:'1.0-0' }}%</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <ng-template #noStudents><p>Aucun élève n'est encore inscrit à ce cours.</p></ng-template>
+  </div>
+  <ng-template #loading><mat-spinner diameter="50"></mat-spinner></ng-template>
+</div>

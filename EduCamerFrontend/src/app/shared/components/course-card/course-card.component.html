@@ -1,0 +1,43 @@
+<mat-card class="course-card" [routerLink]="['/home/course-view', course.id]" *ngIf="course">
+  
+  <div class="card-image-container">
+    <img mat-card-image [src]="course.imageUrl || 'assets/welcome/course.svg'" [alt]="course.title">
+    <div class="image-overlay"></div>
+    <mat-icon *ngIf="isEnrolled" class="enrolled-badge">check_circle</mat-icon>
+  </div>
+
+  <mat-card-header>
+    <mat-card-title>{{ course.title }}</mat-card-title>
+    <mat-card-subtitle>{{ course.instructorName }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ course.description }}</p>
+  </mat-card-content>
+  
+  <!-- Barre de progression : s'affiche uniquement si c'est un cours inscrit -->
+  <ng-container *ngIf="isEnrolledCourse(course)">
+    <mat-progress-bar
+        mode="determinate" 
+        [value]="course.progress!"
+        class="course-progress-bar">
+    </mat-progress-bar>
+  </ng-container>
+  
+  <mat-card-actions class="card-footer">
+    <!-- Infos du catalogue : s'affichent uniquement si c'est un cours du catalogue -->
+    <div class="info-chips-container" *ngIf="isCatalogCourse(course)">
+      <div class="info-chip">
+        <mat-icon>people_outline</mat-icon>
+        <span>{{ course.enrolledStudentCount | number }} Élève(s)</span>
+      </div>
+      <div class="info-chip rating" *ngIf="course.averageRating > 0">
+        <mat-icon>star_rate</mat-icon>
+        <span>{{ course.averageRating | number:'1.1-1' }}</span>
+      </div>
+    </div>
+
+    <!-- Zone où le contenu projeté (bouton Continuer ou S'inscrire) sera inséré -->
+    <ng-content></ng-content>
+  </mat-card-actions>
+</mat-card>

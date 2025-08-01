@@ -1,0 +1,55 @@
+.list-container {
+  padding: 1rem;
+}
+
+table {
+  width: 100%;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Style pour l'indicateur de statut */
+.status-indicator {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  
+  &.enabled {
+    background-color: #dcfce7; // Vert clair
+    color: #166534; // Vert foncé
+  }
+  
+  &.disabled {
+    background-color: #fee2e2; // Rouge clair
+    color: #991b1b; // Rouge foncé
+  }
+}
+
+// Pour l'icône de toggle-off, la rendre un peu grise
+mat-icon {
+    &.toggle-off-icon {
+        color: #9ca3af;
+    }
+}
+
+.role-chip {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+  text-transform: capitalize;
+  
+  &.admin { background-color: #ef4444; }
+  &.instructor { background-color: #f97316; }
+  &.tutor { background-color: #8b5cf6; }
+  &.student { background-color: #3b82f6; }
+  &.parent { background-color: #22c55e; }
+}
