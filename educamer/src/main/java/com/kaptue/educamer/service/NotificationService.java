@@ -2,14 +2,12 @@ package com.kaptue.educamer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.kaptue.educamer.entity.Notification;
 import com.kaptue.educamer.entity.User;
 import com.kaptue.educamer.repository.NotificationRepository;
-
 import jakarta.transaction.Transactional;
 
-// ... imports ...
+
 @Service
 public class NotificationService {
     @Autowired private NotificationRepository notificationRepository;

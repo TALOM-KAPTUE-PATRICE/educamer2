@@ -3,7 +3,8 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter 
+@Setter
 public class CourseRequest {
     @NotBlank @Size(min = 5, max = 150)
     private String title;

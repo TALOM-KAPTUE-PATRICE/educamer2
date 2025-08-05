@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate; // <-- AJOUTER
 
 @SpringBootApplication
 @EnableScheduling
-@EnableAsync // <-- AJOUTEZ CETTE ANNOTATION
+@EnableAsync
 public class EducamerApplication {
 
 	public static void main(String[] args) {
