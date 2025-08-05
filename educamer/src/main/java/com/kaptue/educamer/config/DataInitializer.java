@@ -57,7 +57,7 @@ public class DataInitializer implements CommandLineRunner {
         logger.info("Aucun compte admin trouvé. Création du compte admin initial...");
         
         Admin initialAdmin = new Admin();
-        initialAdmin.setName(adminName);
+        initialAdmin.setName(adminName);       
         initialAdmin.setEmail(adminEmail);
         initialAdmin.setPassword(passwordEncoder.encode(adminPassword));
 

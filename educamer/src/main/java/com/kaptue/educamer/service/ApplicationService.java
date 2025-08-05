@@ -8,11 +8,14 @@ import com.kaptue.educamer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.beans.factory.annotation.Value;
 
 
 @Service
 public class ApplicationService {
+
+    @Value("${admin.bootstrap.email}") // <-- Injecter l'email de l'admin
+    private String adminEmail;
 
     @Autowired private InstructorApplicationRepository applicationRepository;
     @Autowired private UserRepository userRepository;
@@ -45,7 +48,7 @@ public class ApplicationService {
 
         // 4. Envoyer un email de notification à l'admin
         // L'email de l'admin pourrait être dans les application.properties
-        String adminEmail = "kaptuepatrice5@gmail.com";
+       
         String subject = "Nouvelle candidature d'instructeur sur EduCamer";
         String text = "Une nouvelle candidature a été soumise par " + request.getName() + " (" + request.getEmail() + "). Veuillez la consulter dans votre panel d'administration.";
         emailService.sendSimpleMessage(adminEmail, subject, text);
