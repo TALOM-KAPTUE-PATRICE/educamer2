@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.HashSet; // <-- Importer
 
 @Entity @Table(name = "quizzes") 
+
 @Getter 
 @Setter
 public class Quiz {

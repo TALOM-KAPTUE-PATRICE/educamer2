@@ -12,7 +12,8 @@ import com.kaptue.educamer.entity.enums.CourseStatus;
 
 @Entity
 @Table(name = "courses")
-@Getter @Setter
+@Getter 
+@Setter
 public class Course {
 
     @Id

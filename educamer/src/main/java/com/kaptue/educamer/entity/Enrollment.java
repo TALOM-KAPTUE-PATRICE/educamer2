@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "enrollments", uniqueConstraints = { @UniqueConstraint(columnNames = {"student_id", "course_id"}) })
-@Getter @Setter
+@Getter 
+@Setter
 public class Enrollment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     @ManyToOne @JoinColumn(name = "student_id") private Student student;

@@ -15,8 +15,8 @@ import com.kaptue.educamer.exception.ResourceNotFoundException;
 import com.kaptue.educamer.repository.AssignmentRepository;
 import com.kaptue.educamer.repository.StudentRepository;
 import com.kaptue.educamer.repository.SubmissionRepository;
-
 import jakarta.transaction.Transactional;
+
 
 @Service
 public class SubmissionService {
@@ -38,7 +38,7 @@ public class SubmissionService {
         }
         
         Submission submission = new Submission();
-        submission.setAssignment(assignment);
+        submission.setAssignment(assignment);        
         submission.setStudent(student);
         submission.setTextContent(request.getTextContent());
 

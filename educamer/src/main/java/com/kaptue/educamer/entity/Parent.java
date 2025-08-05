@@ -8,7 +8,8 @@ import java.util.Set;
 @Entity
 @Table(name = "parents")
 @PrimaryKeyJoinColumn(name = "user_id")
-@Getter @Setter
+@Getter 
+@Setter
 public class Parent extends User {
 
     @ManyToMany

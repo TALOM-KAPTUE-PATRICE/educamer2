@@ -36,4 +36,6 @@ public class PedagogicalApplication {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status = ApplicationStatus.PENDING;
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    
 }

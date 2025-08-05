@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "lesson_completions", uniqueConstraints = { @UniqueConstraint(columnNames = {"student_id", "lesson_id"}) })
-@Getter @Setter
+@Getter 
+@Setter
 public class LessonCompletion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

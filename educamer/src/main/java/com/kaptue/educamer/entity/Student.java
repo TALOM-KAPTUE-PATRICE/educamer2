@@ -10,7 +10,8 @@ import java.util.Set;
 @Entity
 @Table(name = "students")
 @PrimaryKeyJoinColumn(name = "user_id") // Lien avec la table users
-@Getter @Setter
+@Getter 
+@Setter
 public class Student extends User {
 
 

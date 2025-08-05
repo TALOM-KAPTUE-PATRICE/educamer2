@@ -4,6 +4,7 @@ import com.kaptue.educamer.entity.Enrollment;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 public class EnrolledCourseSummaryDTO {

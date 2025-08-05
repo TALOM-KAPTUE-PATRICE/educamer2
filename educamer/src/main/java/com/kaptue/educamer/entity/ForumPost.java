@@ -7,7 +7,10 @@ import java.time.LocalDateTime;
 
 
 
-@Entity @Table(name = "forum_posts") @Getter @Setter
+@Entity 
+@Table(name = "forum_posts") 
+@Getter 
+@Setter
 public class ForumPost {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     @Column(columnDefinition = "TEXT") private String content;

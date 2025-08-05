@@ -21,7 +21,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "resources")
-@Getter @Setter
+@Getter 
+@Setter
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

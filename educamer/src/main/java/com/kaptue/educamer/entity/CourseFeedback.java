@@ -6,7 +6,10 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 
-@Entity @Table(name = "course_feedbacks") @Getter @Setter
+@Entity 
+@Table(name = "course_feedbacks") 
+@Getter 
+@Setter
 public class CourseFeedback {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private int rating; // 1 à 5

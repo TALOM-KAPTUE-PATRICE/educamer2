@@ -8,7 +8,8 @@ import java.util.Set;
 @Entity
 @Table(name = "instructors")
 @PrimaryKeyJoinColumn(name = "user_id")
-@Getter @Setter
+@Getter 
+@Setter
 public class Instructor extends User {
 
     @Column(columnDefinition = "TEXT")

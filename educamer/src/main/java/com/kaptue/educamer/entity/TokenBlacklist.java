@@ -8,7 +8,9 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "token_blacklist")
-@Getter @Setter @NoArgsConstructor
+@Getter 
+@Setter 
+@NoArgsConstructor
 public class TokenBlacklist {
 
     @Id

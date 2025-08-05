@@ -6,7 +6,10 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Entity @Table(name = "forum_threads") @Getter @Setter
+@Entity 
+@Table(name = "forum_threads") 
+@Getter 
+@Setter
 public class ForumThread {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private String title;

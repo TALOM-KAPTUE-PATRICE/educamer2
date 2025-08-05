@@ -3,7 +3,9 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter 
+@Setter
+
 public class LessonRequest {
     @NotBlank @Size(max = 200)
     private String title;
@@ -13,4 +15,6 @@ public class LessonRequest {
 
     @NotBlank
     private String content;
+
+    
 }

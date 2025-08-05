@@ -10,7 +10,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "lessons")
-@Getter @Setter
+@Getter 
+@Setter
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
