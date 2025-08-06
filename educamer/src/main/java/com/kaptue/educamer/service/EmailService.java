@@ -63,7 +63,7 @@ public class EmailService {
             "role", role.toLowerCase(),
             "loginEmail", to,
             "tempPassword", generatedPassword,
-            "loginUrl", "http://localhost:4200/auth" // Mettez votre URL de frontend
+            "loginUrl", frontendUrl + "/auth"
         );
 
         Context thymeleafContext = new Context();
