@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 // DTO qui correspond à la réponse de l'API /api/user/...
 export interface UserProfileResponse {
@@ -22,7 +23,9 @@ export interface UpdateProfilePayload {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = '/api/user';
+
+  private apiUrl = `${environment.apiUrl}/api/user`; 
+  
 
   constructor(
     private http: HttpClient,

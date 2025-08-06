@@ -43,8 +43,8 @@ export interface CurrentUser {
   providedIn: 'root'
 })
 export class AuthService {
-  
-   private apiUrl = `${environment.apiUrl}/auth`;  // Le proxy de Render s'en chargera
+
+   private apiUrl = `${environment.apiUrl}/api/auth`;  // Le proxy de Render s'en chargera
 
   // Sujets pour diffuser l'état de l'utilisateur et de l'authentification
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);

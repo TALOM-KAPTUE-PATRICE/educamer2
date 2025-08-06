@@ -17,7 +17,7 @@ export interface ManagedUser {
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = `${environment.apiUrl}/admin/users'`; 
+  private apiUrl = `${environment.apiUrl}/api/admin/users`; 
 
   constructor(private http: HttpClient) { }
 

@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class ParentService {
  
-   private apiUrl = `${environment.apiUrl}/parent`;
+   private apiUrl = `${environment.apiUrl}/api/parent`;
   
 
   constructor(private http: HttpClient) {}

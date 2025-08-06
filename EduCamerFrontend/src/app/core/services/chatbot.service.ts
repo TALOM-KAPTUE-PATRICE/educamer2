@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ChatbotService {
-    private apiUrl = `${environment.apiUrl}/chatbot`; 
+    private apiUrl = `${environment.apiUrl}/api/chatbot`; 
 
   constructor(private http: HttpClient) {}
 
