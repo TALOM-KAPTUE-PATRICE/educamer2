@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course, CourseEditorData, Lesson, Assignment, CourseStatistic, Resource, StudentProgress, StudentGradebook } from '../models/instructor.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InstructorService {
-  private apiUrl = '/api/instructor'; // Route de base pour les actions de l'instructeur
 
-  private trackingApiUrl = '/api/instructor/tracking';
-
+  private apiUrl = `${environment.apiUrl}/instructor`;
+  private contentapiUrl = `${environment.apiUrl}/instructor/content`; 
+  private trackingApiUrl = `${environment.apiUrl}/instructor/tracking`;
 
   constructor(private http: HttpClient) { }
 
@@ -125,11 +126,11 @@ export class InstructorService {
     }
 
     // Le type de retour est maintenant Observable<Lesson>
-    return this.http.post<Lesson>(`/api/instructor/content/lessons/${lessonId}/resources`, formData);
+    return this.http.post<Lesson>(`${this.contentapiUrl}/lessons/${lessonId}/resources`, formData);
   }
 
   deleteResource(resourceId: number): Observable<void> {
-    return this.http.delete<void>(`/api/instructor/content/resources/${resourceId}`);
+    return this.http.delete<void>(`${this.contentapiUrl}/resources/${resourceId}`);
   }
 
   /**
@@ -139,7 +140,7 @@ export class InstructorService {
 * @returns Un observable avec la leçon mise à jour.
 */
   createOrUpdateQuiz(lessonId: number, quizData: { title: string }): Observable<Lesson> {
-    return this.http.post<Lesson>(`/api/instructor/content/lessons/${lessonId}/quiz`, quizData);
+    return this.http.post<Lesson>(`${this.contentapiUrl}/lessons/${lessonId}/quiz`, quizData);
   }
 
   addAssignment(courseId: number, data: Partial<Assignment>, file?: File): Observable<Assignment> {
@@ -172,25 +173,20 @@ export class InstructorService {
     return this.http.get<StudentGradebook[]>(`${this.trackingApiUrl}/course/${courseId}/gradebook`);
   }
 
-/**
- * Récupère les détails de base d'un cours spécifique.
- * @param courseId L'ID du cours.
-*/
+  /**
+   * Récupère les détails de base d'un cours spécifique.
+   * @param courseId L'ID du cours.
+  */
   getCourseById(courseId: number): Observable<Course> {
     return this.http.get<Course>(`${this.apiUrl}/courses/${courseId}`);
   }
 
-    deleteCourse(courseId: number): Observable<void> {
+  deleteCourse(courseId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/courses/${courseId}`);
   }
 
   deleteLesson(lessonId: number): Observable<void> {
     // L'endpoint est sur le contrôleur de contenu
-    return this.http.delete<void>(`/api/instructor/content/lessons/${lessonId}`);
+    return this.http.delete<void>(`${this.contentapiUrl}/lessons/${lessonId}`);
   }
-
-
-  
-
-
 }

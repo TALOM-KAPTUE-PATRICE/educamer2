@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode'; // Installer avec: npm install jwt-decode
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../environments/environment';
 
 
 
@@ -42,8 +43,9 @@ export interface CurrentUser {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = '/api/auth'; // Le proxy de Render s'en chargera
-  private userApiUrl = '/api/user';
+  
+   private apiUrl = `${environment.apiUrl}/auth`;  // Le proxy de Render s'en chargera
+
   // Sujets pour diffuser l'état de l'utilisateur et de l'authentification
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();

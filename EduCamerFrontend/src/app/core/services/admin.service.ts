@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 // Interface pour représenter un utilisateur dans la liste
 export interface ManagedUser {
@@ -16,7 +17,7 @@ export interface ManagedUser {
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = '/api/admin/users';
+  private apiUrl = `${environment.apiUrl}/admin/users'`; 
 
   constructor(private http: HttpClient) { }
 

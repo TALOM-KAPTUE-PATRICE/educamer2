@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 
 export interface InstructorApplication {
@@ -13,7 +14,7 @@ export interface InstructorApplication {
 
 export interface InstructorApplicationDetail {
   id: number; name: string; email: string; phone: string;
-  specializations: string; motivation: string; resumeUrl: string; encodedResumePublicId:string;
+  specializations: string; motivation: string; resumeUrl: string; encodedResumePublicId: string;
 }
 
 
@@ -21,8 +22,9 @@ export interface InstructorApplicationDetail {
   providedIn: 'root'
 })
 export class ApplicationService {
-  private publicApiUrl = '/api/public/instructor-applications';
-  private adminApiUrl = '/api/admin/applications';
+
+  private publicApiUrl = `${environment.apiUrl}/public/instructor-applications`;
+  private adminApiUrl = `${environment.apiUrl}/admin/applications`;
 
   constructor(private http: HttpClient) { }
 
@@ -44,10 +46,10 @@ export class ApplicationService {
     return this.http.post(`${this.adminApiUrl}/${applicationId}/reject`, reason, { responseType: 'text' });
   }
 
-    /**
-   * Récupère les détails complets d'une candidature spécifique.
-   * @param applicationId L'ID de la candidature.
-   */
+  /**
+ * Récupère les détails complets d'une candidature spécifique.
+ * @param applicationId L'ID de la candidature.
+ */
   getApplicationById(applicationId: number): Observable<InstructorApplicationDetail> {
     return this.http.get<InstructorApplicationDetail>(`${this.adminApiUrl}/${applicationId}`);
   }

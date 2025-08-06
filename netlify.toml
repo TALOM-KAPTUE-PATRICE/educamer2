@@ -1,0 +1,19 @@
+# Configuration globale du build
+[build]
+  # La commande de build est exécutée depuis la racine du dépôt.
+  # On se déplace dans le dossier du frontend, on installe les dépendances, puis on build.
+  command = "cd EducamerFrontend && npm install && npm run build"
+  
+  # Le dossier à publier, relatif à la racine du dépôt.
+  publish = "EducamerFrontend/dist/edu-camer/browser"
+  
+  # Spécifier la version de Node.js que Netlify doit utiliser (recommandé)
+  [build.environment]
+    NODE_VERSION = "22.12.0" # Ou la version que vous utilisez en local
+
+# Règle de redirection pour les Single Page Applications (SPA)
+# C'est crucial pour que le routage Angular fonctionne en production.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -3,11 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // Importer les modèles de Forum
 import { ForumThread, ForumPost } from '../models/forum.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ForumService {
-  private forumApiUrl = '/api/forum';
-  private moderationApiUrl = '/api/moderation/forum';
+
+
+  private forumApiUrl = `${environment.apiUrl}/forum`;
+  private moderationApiUrl = `${environment.apiUrl}/moderation/forum`;
 
   constructor(private http: HttpClient) { }
 

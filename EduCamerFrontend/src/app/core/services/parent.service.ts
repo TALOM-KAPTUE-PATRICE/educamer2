@@ -4,10 +4,13 @@ import { Observable } from 'rxjs';
 import { LinkedStudent } from '../models/parent.model'; // Modèle à créer
 import { StudentProgress, StudentGradebook } from '../models/instructor.model';
 import { EnrolledCourseSummary } from '../models/student.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ParentService {
-  private apiUrl = '/api/parent';
+ 
+   private apiUrl = `${environment.apiUrl}/parent`;
+  
 
   constructor(private http: HttpClient) {}
 
