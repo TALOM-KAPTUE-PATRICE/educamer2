@@ -24,7 +24,7 @@ export interface UpdateProfilePayload {
 })
 export class UserService {
 
-  private apiUrl = `${environment.apiUrl}/api/user`; 
+  private apiUrl = `${environment.apiUrl}/user`; 
   
 
   constructor(

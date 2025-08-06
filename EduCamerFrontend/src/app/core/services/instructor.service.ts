@@ -9,9 +9,9 @@ import { environment } from '../../../environments/environment';
 })
 export class InstructorService {
 
-  private apiUrl = `${environment.apiUrl}/api/instructor`;
-  private contentapiUrl = `${environment.apiUrl}/api/instructor/content`; 
-  private trackingApiUrl = `${environment.apiUrl}/api/instructor/tracking`;
+  private apiUrl = `${environment.apiUrl}/instructor`;
+  private contentapiUrl = `${environment.apiUrl}/instructor/content`; 
+  private trackingApiUrl = `${environment.apiUrl}/instructor/tracking`;
 
   constructor(private http: HttpClient) { }
 

@@ -44,7 +44,7 @@ export interface CurrentUser {
 })
 export class AuthService {
 
-   private apiUrl = `${environment.apiUrl}/api/auth`;  // Le proxy de Render s'en chargera
+   private apiUrl = `${environment.apiUrl}/auth`;  
 
   // Sujets pour diffuser l'état de l'utilisateur et de l'authentification
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);

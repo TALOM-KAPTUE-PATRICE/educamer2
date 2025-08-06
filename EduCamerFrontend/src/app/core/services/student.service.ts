@@ -14,9 +14,9 @@ import { environment } from '../../../environments/environment';
 
 export class StudentService {
 
-  private apiUrl = `${environment.apiUrl}/api/catalog`; 
-  private studentApiUrl = `${environment.apiUrl}/api/student`;
-  private quizApiUrl = `${environment.apiUrl}/api`;
+  private apiUrl = `${environment.apiUrl}/catalog`; 
+  private studentApiUrl = `${environment.apiUrl}/student`;
+  private quizApiUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) { }
 

@@ -9,8 +9,8 @@ import { environment } from '../../../environments/environment';
 export class ForumService {
 
 
-  private forumApiUrl = `${environment.apiUrl}/api/forum`;
-  private moderationApiUrl = `${environment.apiUrl}/api/moderation/forum`;
+  private forumApiUrl = `${environment.apiUrl}/forum`;
+  private moderationApiUrl = `${environment.apiUrl}/moderation/forum`;
 
   constructor(private http: HttpClient) { }
 

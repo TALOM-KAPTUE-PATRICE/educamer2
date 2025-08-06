@@ -7,9 +7,19 @@
   # Le dossier à publier, relatif à la racine du dépôt.
   publish = "dist/edu-camer/browser"
   
+  
   # Spécifier la version de Node.js que Netlify doit utiliser (recommandé)
   [build.environment]
     NODE_VERSION = "22.12.0" # Ou la version que vous utilisez en local
+
+
+# Règle de redirection pour l'API (Proxy)
+[[redirects]]
+  from = "/api/*" # Intercepte toutes les requêtes commençant par /api/
+  to = "https://educamer-api.onrender.com/api/:splat" # Redirige vers votre backend Render
+  status = 200 # Important: status 200 pour que ça fonctionne comme un proxy et non une redirection 301
+  force = true # S'assure que cette règle a la priorité
+
 
 # Règle de redirection pour les Single Page Applications (SPA)
 # C'est crucial pour que le routage Angular fonctionne en production.
