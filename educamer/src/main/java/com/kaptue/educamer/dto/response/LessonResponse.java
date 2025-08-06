@@ -3,7 +3,8 @@ import com.kaptue.educamer.entity.Lesson;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter 
+@Setter
 public class LessonResponse {
     private Long id;
     private String title;
