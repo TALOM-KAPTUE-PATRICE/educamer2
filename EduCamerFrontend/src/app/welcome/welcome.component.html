@@ -2,20 +2,34 @@
   <!-- =================================== -->
   <!-- 1. HEADER DE NAVIGATION           -->
   <!-- =================================== -->
-  <mat-toolbar class="landing-toolbar">
+  <mat-toolbar class="landing-toolbar" [class.scrolled]="isToolbarScrolled">
     <span class="logo">EduCamer</span>
     <span class="toolbar-spacer"></span>
+
+    <!-- Menu pour ordinateur -->
     <div class="desktop-menu">
-      <a mat-button href="#features">Fonctionnalités</a>
-      <a mat-button href="#testimonials">Témoignages</a>
-      <a mat-button href="#faq">FAQ</a>
+      <a mat-button (click)="scrollTo('features', $event)">Fonctionnalités</a>
+      <a mat-button (click)="scrollTo('testimonials', $event)">Témoignages</a>
+      <a mat-button (click)="scrollTo('faq', $event)">FAQ</a>
       <a mat-button routerLink="/auth">Connexion</a>
-      <a mat-raised-button color="primary" routerLink="/become-instructor">Devenir Enseignant</a>
+      <a mat-raised-button color="primary" routerLink="/become-instructor">Devenir un enseignant</a>
     </div>
-    <button mat-icon-button class="mobile-menu-button">
-      <mat-icon>menu</mat-icon>
+
+    <!-- Bouton Hamburger pour mobile -->
+    <button mat-icon-button class="mobile-menu-button" (click)="toggleMenu()">
+      <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
     </button>
   </mat-toolbar>
+
+  <!-- Menu latéral mobile (Sidenav) -->
+  <div class="mobile-sidenav" [class.open]="isMenuOpen">
+    <a (click)="scrollTo('features', $event)">Fonctionnalités</a>
+    <a (click)="scrollTo('testimonials', $event)">Témoignages</a>
+    <a (click)="scrollTo('faq', $event)">FAQ</a>
+    <mat-divider></mat-divider>
+    <a routerLink="/auth" (click)="closeMenu()">Connexion</a>
+    <a mat-raised-button color="primary" routerLink="/become-instructor" (click)="closeMenu()">Devenir Enseignant</a>
+  </div>
 
   <!-- =================================== -->
   <!-- 2. SECTION HÉROS                  -->
@@ -32,20 +46,33 @@
     </div>
   </header>
 
+
   <!-- =================================== -->
-  <!-- 3. SECTION PREUVE SOCIALE         -->
+  <!-- 3. SECTION "POURQUOI NOUS ?" (NOUVEAU) -->
   <!-- =================================== -->
-  <section class="social-proof-section">
-    <div class="social-proof-content">
-      <span>Approuvé par des établissements et des éducateurs de confiance</span>
-      <div class="logos">
-        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 1">
-        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 2">
-        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 3">
-        <img src="assets/welcome/logo-placeholder.svg" alt="Logo partenaire 4">
+  <section id="why-us" class="why-us-section">
+    <div class="section-content animate-on-scroll">
+      <div class="text-column">
+        <h2>Conçu pour le Cameroun, par des Camerounais.</h2>
+        <p class="section-subtitle">Nous ne sommes pas juste une autre plateforme en ligne. Nous comprenons les défis et
+          les ambitions du système éducatif camerounais.</p>
+        <ul>
+          <li><mat-icon color="primary">check_circle</mat-icon> <strong>Programme Officiel :</strong> Contenu 100%
+            conforme, de la 6ème à la Terminale.</li>
+          <li><mat-icon color="primary">check_circle</mat-icon> <strong>Contexte Culturel :</strong> Des exemples et des
+            exercices qui parlent à nos élèves.</li>
+          <li><mat-icon color="primary">check_circle</mat-icon> <strong>Accessibilité :</strong> Optimisé pour
+            fonctionner même avec des connexions internet modestes.</li>
+        </ul>
+      </div>
+      <div class="image-column">
+        <img src="assets/welcome/cameroon-map.svg" alt="Illustration du Cameroun">
       </div>
     </div>
   </section>
+
+
+
 
   <!-- =================================== -->
   <!-- 4. SECTION FONCTIONNALITÉS        -->
@@ -54,7 +81,7 @@
     <h2>Une Plateforme Tout-en-Un pour la Réussite</h2>
     <p class="section-subtitle">Conçue pour les élèves, approuvée par les parents, plébiscitée par les enseignants.</p>
     <div class="features-grid">
-      <mat-card class="feature-card">
+      <mat-card class="feature-card animate-on-scroll">
         <mat-icon>auto_stories</mat-icon>
         <mat-card-title>Apprentissage Guidé</mat-card-title>
         <mat-card-content>
@@ -62,7 +89,7 @@
             avant de passer à la suivante.</p>
         </mat-card-content>
       </mat-card>
-      <mat-card class="feature-card">
+      <mat-card class="feature-card animate-on-scroll" data-animation-delay="200ms">
         <mat-icon>insights</mat-icon>
         <mat-card-title>Suivi Parental Détaillé</mat-card-title>
         <mat-card-content>
@@ -70,7 +97,7 @@
             pour un accompagnement efficace.</p>
         </mat-card-content>
       </mat-card>
-      <mat-card class="feature-card">
+      <mat-card class="feature-card animate-on-scroll" data-animation-delay="400ms">
         <mat-icon>school</mat-icon>
         <mat-card-title>Contenu Pédagogique Riche</mat-card-title>
         <mat-card-content>
@@ -85,9 +112,11 @@
   <!-- 5. SECTION TÉMOIGNAGES            -->
   <!-- =================================== -->
   <section id="testimonials" class="testimonials-section">
-    <h2>Ce que notre communauté en dit</h2>
-    <p class="section-subtitle">Élèves, parents et instructeurs partagent leur expérience.</p>
-    <div class="carousel-wrapper">
+    <div class="animate-on-scroll">
+      <h2>Ce que notre communauté en dit</h2>
+      <p class="section-subtitle">Élèves, parents et instructeurs partagent leur expérience.</p>
+    </div>
+    <div class="carousel-wrapper animate-on-scroll">
       <owl-carousel-o [options]="testimonialOptions">
         <ng-template carouselSlide *ngFor="let testimonial of testimonials">
           <div class="testimonial-slide">
@@ -110,54 +139,30 @@
   <!-- =================================== -->
   <!-- 6. SECTION FAQ                    -->
   <!-- =================================== -->
+
   <section id="faq" class="faq-section">
-    <h2>Questions Fréquentes</h2>
-    <mat-accordion>
-      <mat-expansion-panel>
+    <div class="animate-on-scroll">
+      <h2>Questions Fréquentes</h2>
+    </div>
+    <mat-accordion class="animate-on-scroll">
+      <mat-expansion-panel *ngFor="let faq of faqs">
         <mat-expansion-panel-header>
-          <mat-panel-title>La plateforme est-elle gratuite ?</mat-panel-title>
+          <mat-panel-title>{{ faq.question }}</mat-panel-title>
         </mat-expansion-panel-header>
-        <p>L'inscription et l'accès à une sélection de cours de découverte sont entièrement gratuits. Des abonnements
-          premium sont disponibles pour un accès illimité à tout le catalogue et au tutorat personnalisé.</p>
+        <p>{{ faq.answer }}</p>
       </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
-          programme scolaire officiel du Cameroun.</p>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
-          programme scolaire officiel du Cameroun.</p>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
-          programme scolaire officiel du Cameroun.</p>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
-          programme scolaire officiel du Cameroun.</p>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Les cours sont-ils adaptés au programme camerounais ?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>Oui, tous nos contenus sont conçus par des enseignants expérimentés et sont rigoureusement alignés sur le
-          programme scolaire officiel du Cameroun.</p>
-      </mat-expansion-panel>
-
     </mat-accordion>
+  </section>
+
+  <!-- =================================== -->
+  <!-- 7. SECTION CTA FINAL (NOUVEAU)    -->
+  <!-- =================================== -->
+  <section class="final-cta-section">
+    <div class="cta-content animate-on-scroll">
+      <h2>Prêt à transformer votre parcours scolaire ?</h2>
+      <p>Rejoignez des milliers d'élèves et de parents qui nous font confiance.</p>
+      <a mat-raised-button color="accent" class="hero-cta" routerLink="/auth/register">Créer mon compte gratuit</a>
+    </div>
   </section>
 
   <!-- =================================== -->

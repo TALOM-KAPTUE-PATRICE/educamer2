@@ -27,24 +27,6 @@ $azure-blue-accent-palette: (
   )
 );
 
-// // 4. Création des objets de palette Material
-// $educamer-primary: mat.define-palette($azure-blue-primary-palette, 500);
-// $educamer-accent: mat.define-palette($azure-blue-accent-palette, 500, A200, A400);
-// $educamer-warn: mat.define-palette(mat.$red-palette);
-
-// // 5. Création de l'objet thème complet
-// $educamer-theme: mat.define-light-theme((
-//   color: (
-//     primary: $educamer-primary,
-//     accent: $educamer-accent,
-//     warn: $educamer-warn,
-//   )
-// ));
-
-// // 6. Application du thème à tous les composants Material
-// @include mat.all-component-themes($educamer-theme);
-
-
 // 7. Styles globaux restants
 html, body {
     height: 100%;

@@ -12,11 +12,14 @@
   --text-dark: #1e293b;
   --text-light: #64748b;
   --bg-light-gray: #f8fafc;
+  --bg-dark-blue: #2c3e50;
 }
 
 .landing-page {
   font-family: 'Roboto', sans-serif;
   color: var(--text-dark);
+    // Assure que le scroll se fait sur la page et non sur le body
+  overflow-x: hidden;
 }
 
 .section-subtitle {
@@ -38,6 +41,11 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+
+  &.scrolled {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  }
 
   .logo {
     font-size: 1.5rem;
@@ -45,6 +53,10 @@
     color: var(--primary-color);
   }
   .toolbar-spacer { flex: 1 1 auto; }
+  .desktop-menu a {
+    font-weight: 500;
+    margin: 0 8px;
+  }
   .mat-mdc-button { color: var(--text-dark); }
   .mobile-menu-button { display: none; }
 }
@@ -53,6 +65,40 @@
 .landing-page {
   padding-top: 64px;
 }
+
+// --- Menu Mobile Sidenav ---
+.mobile-sidenav {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  width: 280px;
+  height: calc(100vh - 64px);
+  background: white;
+  z-index: 999;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1rem;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    border-radius: 4px;
+    &:hover { background-color: var(--bg-light-gray); }
+  }
+}
+
+
 
 // ===================================
 // 2. SECTION HÉROS
@@ -109,29 +155,61 @@
 }
 
 // ===================================
-// 3. SECTION PREUVE SOCIALE
+// 3. NOUVELLE SECTION "POURQUOI NOUS ?"
 // ===================================
-.social-proof-section {
-  background-color: #f1f5f9;
-  padding: 2rem 1rem;
-  .social-proof-content {
+.why-us-section {
+
+  padding: 6rem 2rem; // Augmenter le padding vertical et horizontal
+  background-color: white;
+  .section-content {
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    color: var(--text-light);
-    span { font-weight: 500; }
-    .logos {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-top: 1.5rem;
-      img {
-        height: 30px;
-        opacity: 0.6;
-        filter: grayscale(100%);
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+  .text-column {
+    flex: 1.2; // Donner un peu plus d'espace au texte
+    h2 {
+      font-size: 2.8rem; // Agrandir le titre
+      font-weight: 800; // Le rendre plus impactant
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+     }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 2.5rem; // Plus d'espace au-dessus de la liste
+      li {
+        display: flex;
+        align-items: flex-start; // Aligner sur le haut pour les textes longs
+        gap: 1rem;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        .mat-icon { 
+          font-size: 28px; 
+          width: 28px; 
+          height: 28px;
+          color: var(--primary-color);
+          margin-top: 2px; // Petit ajustement vertical 
+        }
+        strong {
+          color: var(--text-dark);
+          display: block; // Met le titre de l'avantage sur sa propre ligne
+          margin-bottom: 4px;
+        }
       }
+    }
+  }
+  .image-column {
+    flex: 1;
+    text-align: center;
+    img { 
+      max-width: 100%; 
+      height: auto; 
+            // Ajout d'un effet subtil sur l'image
+      filter: drop-shadow(0 10px 20px rgba(63, 81, 181, 0.15));
     }
   }
 }
@@ -262,6 +340,31 @@
   }
 }
 
+
+// ===================================
+// 7. NOUVELLE SECTION CTA FINAL
+// ===================================
+.final-cta-section {
+  background-color: var(--bg-dark-blue);
+  color: white;
+  padding: 5rem 1rem;
+  text-align: center;
+  .cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+    h2 { font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; }
+    p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
+    .hero-cta { /* Réutiliser le style du bouton principal */
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      border-radius: 50px;
+      background-color: var(--accent-color) !important;
+      color: var(--text-dark) !important;
+    }
+  }
+}
+
+
 // ===================================
 // 7. FOOTER
 // ===================================
@@ -304,18 +407,61 @@
   }
 }
 
+
+
 // ===================================
-// 8. RESPONSIVE & ANIMATIONS
+// 9. ANIMATIONS & RESPONSIVE
 // ===================================
+
+// --- Animation de scroll "Fade-in & Slide-up" ---
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  // Permet de décaler l'animation pour les éléments d'une même section
+  &[data-animation-delay] {
+    transition-delay: var(--animation-delay, 0s);
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 960px) {
-  .desktop-menu { display: none; }
-  .mobile-menu-button { display: block; }
+  .landing-toolbar {
+    // Sur petit écran, on cache le menu desktop
+    .desktop-menu {
+      display: none;
+    }
+    // Et on affiche le bouton hamburger
+    .mobile-menu-button {
+      display: block;
+    }
+  }
+  .why-us-section .section-content { flex-direction: column-reverse; }
+
+  .why-us-section .text-column ul li {
+    align-items: center; // Centrer sur mobile
+    text-align: left; // Garder le texte aligné à gauche pour la lisibilité
+  }
   :host ::ng-deep .owl-nav { display: none; }
+ 
   .carousel-wrapper { padding: 0; }
 }
 
 @media (max-width: 768px) {
   .hero-content h1 { font-size: 2.5rem; }
+  .why-us-section .text-column h2,
+  .features-section h2,
+  .testimonials-section h2,
+  .faq-section h2,
+  .final-cta-section h2 {
+    font-size: 2rem;
+  }
   .footer-content { flex-direction: column; text-align: center; }
 }
 
