@@ -31,7 +31,7 @@ import { ApplicationReviewDialogComponent } from './dialogs/application-review-d
 import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChatbotComponent } from './shared/components/chatbot/chatbot.component';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDividerModule,
     MatStepperModule,   
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    AnimateOnScrollDirective
     
 
   ],

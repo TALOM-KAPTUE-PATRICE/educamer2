@@ -7,7 +7,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent  implements OnInit {
+export class WelcomeComponent  {
 
     // --- 1. GESTION DU MENU MOBILE ---
   isMenuOpen = false;
@@ -51,28 +51,28 @@ export class WelcomeComponent  implements OnInit {
   // Données des témoignages enrichies avec des rôles et des notations
   testimonials = [
     {
-      image: 'assets/welcome/student1.jpg',
+      image: 'assets/welcome/profile.svg',
       quote: "La progression séquentielle des leçons m'a vraiment aidé à ne pas me sentir perdu. J'ai validé mon quiz de maths et j'ai enfin compris le chapitre !",
       author: "Fanta B.",
       role: "Élève en 3ème",
       rating: 5
     },
     {
-      image: 'assets/welcome/parent1.jpg',
+      image: 'assets/welcome/profile.svg',
       quote: "Je suis impressionné par la qualité du suivi. Voir les notes et la progression de ma fille en temps réel est un vrai plus. C'est rassurant.",
       author: "M. Ndiaye",
       role: "Parent d'élève",
       rating: 5
     },
     {
-      image: 'assets/welcome/instructor1.jpg',
+      image: 'assets/welcome/profile.svg',
       quote: "En tant qu'enseignant, la plateforme me donne des outils incroyables pour créer du contenu interactif. L'éditeur de cours est simple et puissant.",
       author: "Mme. Kamga",
       role: "Instructrice de Physique",
       rating: 4
     },
     {
-      image: 'assets/welcome/student2.jpg',
+      image: 'assets/welcome/profile.svg',
       quote: "Les ressources PDF et les vidéos sont toujours disponibles. Je peux réviser n'importe quand, même depuis mon téléphone. Ça a changé ma façon d'étudier.",
       author: "Ahmed K.",
       role: "Élève en Terminale",
@@ -106,9 +106,6 @@ export class WelcomeComponent  implements OnInit {
 
   constructor(private el: ElementRef) {}
 
-  ngOnInit(): void {
-    this.setupScrollAnimations();
-  }
 
   // --- MÉTHODES POUR LE MENU MOBILE ---
   toggleMenu(): void {
@@ -130,30 +127,6 @@ export class WelcomeComponent  implements OnInit {
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     this.isToolbarScrolled = window.scrollY > 10;
-  }
-
-  // --- MÉTHODE POUR LES ANIMATIONS AU SCROLL ---
-  private setupScrollAnimations(): void {
-    const options = {
-      root: null, // observe par rapport au viewport
-      rootMargin: '0px',
-      threshold: 0.2 // L'animation se déclenche quand 20% de l'élément est visible
-    };
-
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          this.observer.unobserve(entry.target); // N'anime qu'une seule fois
-        }
-      });
-    }, options);
-
-    // On cible tous les éléments qui ont la classe 'animate-on-scroll'
-    const sectionsToAnimate = this.el.nativeElement.querySelectorAll('.animate-on-scroll');
-    sectionsToAnimate.forEach((section: Element) => {
-      this.observer.observe(section);
-    });
   }
 
   // Fonction utilitaire pour les étoiles (inchangée)
